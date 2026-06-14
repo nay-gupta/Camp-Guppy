@@ -1,0 +1,20 @@
+# Node / Azure Functions
+node_modules/
+local.settings.json
+.azure/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Obsidian workspace state (keep notes, ignore local UI state)
+.obsidian/workspace*.json
+.obsidian/cache
+.trash/

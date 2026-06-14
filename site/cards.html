@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Camp Guppy — Printable Cards</title>
+    <link rel="stylesheet" href="cards.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Toolbar hidden when printing -->
+    <div class="toolbar no-print">
+      <div class="toolbar-inner">
+        <strong>Camp Guppy — printable character cards</strong>
+        <label class="toolbar-field">
+          Site URL
+          <input
+            id="siteUrl"
+            type="text"
+            placeholder="https://your-site.azurestaticapps.net"
+          />
+        </label>
+        <button id="printBtn" type="button">🖨️ Print</button>
+      </div>
+      <p class="toolbar-hint">
+        Enter your live site URL to print a scannable QR code on each card, then
+        cut along the lines. Each card has the player's secret codeword — keep
+        them face-down until handout.
+      </p>
+    </div>
+
+    <main id="cards" class="sheet"></main>
+
+    <div class="section-break no-print">
+      <h2>Evidence cards (host hands these out)</h2>
+      <p>
+        Print these and reveal each one at the moment noted on the card. They
+        turn the mystery into something players <em>discover</em>.
+      </p>
+    </div>
+
+    <section id="clues" class="sheet clue-sheet"></section>
+
+    <script src="data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="cards.js"></script>
+  </body>
+</html>

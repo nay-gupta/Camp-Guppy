@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Camp Guppy — A Murder Mystery</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>"
+    />
+  </head>
+  <body>
+    <div class="storm" aria-hidden="true"></div>
+    <div class="rain" aria-hidden="true"></div>
+
+    <!-- ===== LOCK SCREEN ===== -->
+    <main id="lock" class="screen">
+      <div class="lock-card">
+        <div class="emblem">🏕️</div>
+        <h1 class="title">Camp Guppy</h1>
+        <p class="subtitle">A Murder Mystery</p>
+        <p class="blurb" id="setting"></p>
+
+        <form id="codeForm" autocomplete="off">
+          <label for="codeInput" class="label">Enter your secret codeword</label>
+          <input
+            id="codeInput"
+            class="code-input"
+            type="text"
+            inputmode="text"
+            placeholder="Codeword"
+            aria-describedby="error"
+            autocapitalize="characters"
+            autocorrect="off"
+            spellcheck="false"
+          />
+          <button type="submit" class="btn">Open my dossier</button>
+          <p id="error" class="error" role="alert" hidden>
+            That codeword isn't on the roster. Check your card and try again.
+          </p>
+        </form>
+
+        <p class="hint">Your codeword was handed out with your character card.</p>
+      </div>
+    </main>
+
+    <!-- ===== CHARACTER SCREEN ===== -->
+    <main id="sheet" class="screen" hidden>
+      <button id="backBtn" class="back-btn" type="button">&larr; Switch character</button>
+      <article class="sheet-card" id="sheetCard"></article>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

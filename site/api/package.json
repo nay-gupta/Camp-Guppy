@@ -1,0 +1,9 @@
+{
+  "name": "camp-guppy-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for the Camp Guppy murder mystery — tracks the live act/phase.",
+  "main": "state/index.js",
+  "dependencies": {
+    "@azure/data-tables": "^13.3.1"
+  }
+}

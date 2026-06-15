@@ -766,6 +766,23 @@ const CHARACTERS = [
       },
     ],
     acts: {
+      "🔔 Cue Sheet — Paired Moments to Shepherd": [
+        "These beats need TWO+ players to act in sync. Don't trust them to self-coordinate in a loud room — YOU trigger each one and pre-position the reacting player.",
+        "BLACKOUT · the 911 chain: send the Archery Counselor out to the phone first, the CiT after them, then the Camp Director out last. Make sure the Director 'finds' the lost CiT and they re-enter together.",
+        "BLACKOUT · the hammer plant: privately confirm the Camp Director slips the hammer into the CiT's backpack in the dark. The CiT must NOT know it happened.",
+        "BLACKOUT · the eavesdrop: send the Cook + Wealthy Land Owner off to talk 'operation,' then quietly point the Nurse to trail the Cook so they overhear it.",
+        "BLACKOUT · the sighting: make sure the Lifeguard + Alumnus are seen leaving together, and that the Lifeguard clocks a figure (the Director) crossing toward the lake.",
+        "ACT II · the hammer in the backpack (the big one): cue the CiT to get water from their backpack OUT IN THE OPEN, and pre-position the Nurse right beside them so the instant the hammer shows, the Nurse shrieks. Never let the CiT do this in a quiet corner.",
+        "ACT II · showing the body: have the Lifeguard be the one to walk you (the Detective) to the body, over the Land Owner's objection.",
+        "ACT II · the tracking flub: let Survival Skills demo 'tracking' at the scene and accidentally injure the CiT.",
+        "ACT II · the 'abuse' mix-up: drop the word 'abuse' and let the Cook (substance), Survival (the people they've maimed), Land Owner (abuse of power), and Nurse (a real suspicion) each visibly hear something different.",
+        "ACT III · the storm-off: when Maintenance leaves to drink, send the Camp Director after them and the rest of the gang trailing along.",
+        "ACT III · connecting the dots: pair the Nurse and CiT so they link the clues onto the Director out loud, in earshot of others.",
+        "ACT III · the detainment: orchestrate the group tying up the Director in a separate room, then take the Director aside privately and tell them exactly how they killed Archery.",
+        "ACT III · the poisoning: while the room gossips, quietly green-light the Alumnus to spike the restrained Director's drink with the Nurse's stolen meds. Only you and the Alumnus know.",
+        "ACT III · the staging: after the Director dies, cue the Cook (who finds them already dead) and the Nurse to loop Survival's tent-rope around the neck. The Cook tells the Land Owner the kill was his (escaping blackmail); the Land Owner verifies. Then the CiT 'discovers' the roped body.",
+        "FINALE · the summoning: reveal you're a medium and summon the Director's ghost (the Archery player can return too) to confess everything.",
+      ],
       "The Murders (Solution)": [
         "MURDER 1 — Archery Counselor: killed by the CAMP DIRECTOR during the blackout, with Maintenance's hammer, near the emergency phone. Body dumped in the mud; hammer planted in the Counselor in Training's backpack.",
         "MURDER 2 — Camp Director: in Act III, while everyone gossips and plots against the restrained Camp Director, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds. The Camp Director takes the drink into the room, chokes, and dies — revenge for their beaten child. The Cook (blackmailed by the Land Owner to do the killing) goes to do it but finds the Director ALREADY dead; the Cook & Nurse stage a rope around the neck and the Cook tells the Land Owner the kill was his, escaping the blackmail. The Wealthy Land Owner verifies. The Counselor in Training discovers the roped body.",

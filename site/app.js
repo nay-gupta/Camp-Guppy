@@ -155,9 +155,9 @@
           <ul class="ros-notes">${notes}</ul></div>`;
       })
       .join("");
-    return `<section class="section run-of-show"><h3>⏱️ Run of Show — Host Timing</h3>
+    return `<details class="section section-fold" open><summary><span class="fold-title">⏱️ Run of Show — Host Timing</span></summary><div class="fold-body">
       <p class="tl-intro">Suggested pacing for a ~2 hour party. Use the Advance button to move everyone between phases.</p>
-      <div class="ros-list">${rows}</div></section>`;
+      <div class="ros-list">${rows}</div></div></details>`;
   }
 
   function timelineBlock(timeline) {
@@ -173,9 +173,9 @@
         return `<div class="tl-group"><h4>${escapeHtml(g.phase)}</h4><ol class="tl-beats">${beats}</ol></div>`;
       })
       .join("");
-    return `<section class="section timeline"><h3>📜 Full Timeline — What Really Happened</h3>
+    return `<details class="section section-fold"><summary><span class="fold-title">📜 Full Timeline — What Really Happened</span></summary><div class="fold-body">
       <p class="tl-intro">The complete chronological truth. For your eyes only.</p>
-      <div class="tl-groups">${groups}</div></section>`;
+      <div class="tl-groups">${groups}</div></div></details>`;
   }
 
   function actsBlock(acts, isHost) {
@@ -204,6 +204,9 @@
         return `<div class="act"><h4>${escapeHtml(actName)}</h4><ul>${lis}</ul></div>`;
       })
       .join("");
+    if (isHost) {
+      return `<details class="section section-fold"><summary><span class="fold-title">📋 Master Playbook & Cue Sheet</span></summary><div class="fold-body"><div class="acts">${blocks}</div></div></details>`;
+    }
     return `<section class="section"><h3>Your Playbook</h3><div class="acts">${blocks}</div></section>`;
   }
 
@@ -270,7 +273,7 @@
       ${isHost ? hostBlackoutPanel() : ""}
       ${!isHost ? blackoutLiveBlock(c) : ""}
       ${c.note ? `<p class="callout">${escapeHtml(c.note)}</p>` : ""}
-      ${listBlock("Who you are", c.personality, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
+      ${listBlock("Who you are", c.personality, { collapsible: true, open: !isHost && currentAct === 0 })}
       ${listBlock("Your secrets", c.secrets, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
       ${listBlock("Relationships", c.relationships, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
       ${objectivesBlock(c.objectives, isHost)}

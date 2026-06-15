@@ -363,6 +363,18 @@ body {
 .section-fold > ul li {
   margin: 0.3rem 0;
 }
+/* Host folded sections wrap rich content (playbook, run-of-show, timeline) */
+.section-fold > .fold-body {
+  padding: 0 0 1rem;
+}
+.section-fold > .fold-body > .acts,
+.section-fold > .fold-body > .ros-list,
+.section-fold > .fold-body > .tl-groups {
+  margin-top: 0.25rem;
+}
+.section-fold > .fold-body > .tl-intro {
+  margin: 0 0 0.6rem;
+}
 
 /* ---------- Current act emphasis + folded past acts (players) ---------- */
 .act.act-now {

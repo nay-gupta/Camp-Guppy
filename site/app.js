@@ -3,8 +3,8 @@
   "use strict";
 
   const STORAGE_CODE = "mm_code";
-  const STORAGE_HOSTKEY = "mm_hostkey";
   const POLL_MS = 3000;
+  const DEFAULT_BLACKOUT_MS = 3 * 60 * 1000; // 3 minutes
   const PHASES = ["Intro", "Act I", "Act II", "Act III", "Accusation", "Finale"];
 
   const lock = document.getElementById("lock");
@@ -30,6 +30,9 @@
   let currentAct = 0; // global phase index, driven by the host via the server
   let lastServerAct = null; // last value we saw from the server
   let pollTimer = null;
+  let blackoutUntil = 0; // epoch ms the blackout ends (0 = none), synced via server
+  let blackoutTicker = null; // local interval that refreshes the countdown UI
+  let wasBlackout = false; // tracks the active->ended transition
 
   function normalize(s) {
     return String(s || "")
@@ -81,10 +84,39 @@
     }, 4000);
   }
 
-  function listBlock(title, items) {
+  function listBlock(title, items, opts) {
     if (!items || !items.length) return "";
+    opts = opts || {};
     const lis = items.map((i) => `<li>${escapeHtml(i)}</li>`).join("");
+    if (opts.collapsible) {
+      return `<details class="section section-fold"${opts.open ? " open" : ""}>
+        <summary><span class="fold-title">${escapeHtml(title)}</span></summary>
+        <ul>${lis}</ul></details>`;
+    }
     return `<section class="section"><h3>${escapeHtml(title)}</h3><ul>${lis}</ul></section>`;
+  }
+
+  function blackoutBlock() {
+    // Shared, spoiler-free explainer of how the blackout is handled.
+    // Only relevant while the night is at Intro / Act I.
+    if (!GAME.blackout || currentAct > 1) return "";
+    return `<section class="section blackout"><h3>\uD83C\uDF29\uFE0F The Blackout</h3>
+      <p>${escapeHtml(GAME.blackout)}</p></section>`;
+  }
+
+  function blackoutLiveBlock(c) {
+    // Live, highlighted callout shown on a player's own sheet WHILE the
+    // blackout timer is running. Shows their personal action + countdown.
+    if (!c || c.role === "host" || !blackoutActive()) return "";
+    const action = c.blackoutPlayer || GAME.blackout || "";
+    return `<section class="section blackout-live">
+      <div class="bo-live-head">
+        <span class="bo-live-title">\u26A1 BLACKOUT \u2014 lights are out</span>
+        <span class="bo-live-clock" id="boLiveClock">${fmtClock(remainingMs())}</span>
+      </div>
+      <p class="bo-live-action">${escapeHtml(action)}</p>
+      <p class="bo-live-hint">Quietly do your thing in the dark. Don't peek at what anyone else is up to.</p>
+    </section>`;
   }
 
   function objectivesBlock(objectives, isHost) {
@@ -162,6 +194,13 @@
             return `<li class="${isKill ? "kill" : ""}">${escapeHtml(line)}</li>`;
           })
           .join("");
+        // Players: foreground the current act, fold away past ones.
+        if (!isHost) {
+          if (idx === currentAct) {
+            return `<div class="act act-now"><h4>${escapeHtml(actName)} <span class="act-now-tag">Now</span></h4><ul>${lis}</ul></div>`;
+          }
+          return `<details class="act act-fold"><summary><span class="act-fold-title">${escapeHtml(actName)}</span><span class="act-fold-hint">done</span></summary><ul>${lis}</ul></details>`;
+        }
         return `<div class="act"><h4>${escapeHtml(actName)}</h4><ul>${lis}</ul></div>`;
       })
       .join("");
@@ -186,6 +225,29 @@
       </section>`;
   }
 
+  function hostBlackoutPanel() {
+    const players = CHARACTERS.filter((c) => c.role !== "host" && c.blackoutAction);
+    const rows = players
+      .map(
+        (c) =>
+          `<li><span class="bo-emoji">${c.emoji}</span>` +
+          `<span class="bo-name">${escapeHtml(c.name)}</span>` +
+          `<span class="bo-act">${escapeHtml(c.blackoutAction)}</span></li>`
+      )
+      .join("");
+    return `<section class="section blackout-panel">
+      <h3>\uD83C\uDF29\uFE0F Blackout Control</h3>
+      <div class="bo-controls">
+        <button class="btn" id="boStart">\u26A1 Start Blackout (3:00)</button>
+        <button class="btn-ghost" id="boPlus">+1 min</button>
+        <button class="btn-ghost" id="boStop">End blackout</button>
+        <span class="bo-panel-clock" id="boPanelClock">Ready</span>
+      </div>
+      <p class="bo-panel-note">Hit Start to drop a synced countdown on every player's screen. Quietly shepherd each blackout action below as the room plays it out in the dark:</p>
+      <ol class="bo-actions">${rows}</ol>
+    </section>`;
+  }
+
   function render(c) {
     active = c;
     const isHost = c.role === "host";
@@ -205,17 +267,21 @@
           ? hostBar()
           : `<p class="phase-pill">Now playing: <strong>${escapeHtml(phaseLabel)}</strong></p>`
       }
+      ${isHost ? hostBlackoutPanel() : ""}
+      ${!isHost ? blackoutLiveBlock(c) : ""}
       ${c.note ? `<p class="callout">${escapeHtml(c.note)}</p>` : ""}
-      ${listBlock("Who you are", c.personality)}
-      ${listBlock("Your secrets", c.secrets)}
+      ${listBlock("Who you are", c.personality, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
+      ${listBlock("Your secrets", c.secrets, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
+      ${listBlock("Relationships", c.relationships, isHost ? undefined : { collapsible: true, open: currentAct === 0 })}
       ${objectivesBlock(c.objectives, isHost)}
-      ${listBlock("Relationships", c.relationships)}
+      ${!isHost ? blackoutBlock() : ""}
       ${actsBlock(c.acts, isHost)}
       ${isHost ? runOfShowBlock(c.runOfShow) : ""}
       ${isHost ? timelineBlock(c.timeline) : ""}
       <p class="footer-note">Keep this to yourself. The fun dies if the secrets get out early.</p>
     `;
     if (isHost) wireHostControls();
+    updateBlackoutUI();
     window.scrollTo(0, 0);
   }
 
@@ -255,10 +321,20 @@
       const r = await fetch("/api/state", { cache: "no-store" });
       if (!r.ok) return null;
       const data = await r.json();
-      return typeof data.act === "number" ? data.act : 0;
+      return {
+        act: typeof data.act === "number" ? data.act : 0,
+        blackoutUntil:
+          typeof data.blackoutUntil === "number" ? data.blackoutUntil : 0,
+      };
     } catch (e) {
       return null; // offline / local preview without the API
     }
+  }
+
+  function applyState(s) {
+    if (!s) return;
+    applyAct(s.act);
+    applyBlackout(s.blackoutUntil);
   }
 
   function applyAct(act) {
@@ -272,17 +348,85 @@
     }
   }
 
+  /* ---------- Blackout timer (synced to all players) ---------- */
+  function remainingMs() {
+    return Math.max(0, blackoutUntil - Date.now());
+  }
+
+  function blackoutActive() {
+    return blackoutUntil > Date.now();
+  }
+
+  function fmtClock(ms) {
+    const s = Math.ceil(ms / 1000);
+    const m = Math.floor(s / 60);
+    const ss = String(s % 60).padStart(2, "0");
+    return m + ":" + ss;
+  }
+
+  function applyBlackout(until) {
+    blackoutUntil = Number(until) || 0;
+    updateBlackoutUI();
+  }
+
+  function updateBlackoutUI() {
+    const isActive = blackoutActive();
+
+    // When the blackout starts or ends, re-render so the player's live
+    // action block appears/disappears on their own sheet.
+    if (isActive !== wasBlackout) {
+      if (wasBlackout && !isActive && active && active.role !== "host") {
+        showToast("💡 The lights flicker back on. Everyone drifts back inside…");
+      }
+      wasBlackout = isActive;
+      if (active) render(active); // render() calls updateBlackoutUI() again
+      return;
+    }
+
+    // Keep the live countdown clocks ticking (player sheet + host panel).
+    const clockText = isActive ? fmtClock(remainingMs()) : "Ready";
+    const live = document.getElementById("boLiveClock");
+    if (live) live.textContent = fmtClock(remainingMs());
+    const hc = document.getElementById("boPanelClock");
+    if (hc) hc.textContent = clockText;
+
+    // Run a light ticker only while a blackout is active.
+    if (isActive && !blackoutTicker) {
+      blackoutTicker = setInterval(updateBlackoutUI, 500);
+    } else if (!isActive && blackoutTicker) {
+      clearInterval(blackoutTicker);
+      blackoutTicker = null;
+    }
+  }
+
+  async function setBlackout(until) {
+    try {
+      const r = await fetch("/api/state", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ blackoutUntil: until }),
+      });
+      if (!r.ok) return;
+      const data = await r.json();
+      applyBlackout(
+        typeof data.blackoutUntil === "number" ? data.blackoutUntil : 0
+      );
+    } catch (e) {
+      /* offline — ignore */
+    }
+  }
+
   function startPolling() {
     stopPolling();
-    fetchState().then((a) => {
-      if (a !== null) {
-        lastServerAct = a;
-        applyAct(a);
+    fetchState().then((s) => {
+      if (s) {
+        lastServerAct = s.act;
+        applyState(s);
       }
     });
     pollTimer = setInterval(async () => {
-      const a = await fetchState();
-      if (a !== null) applyAct(a);
+      const s = await fetchState();
+      if (s) applyState(s);
     }, POLL_MS);
   }
 
@@ -291,48 +435,21 @@
       clearInterval(pollTimer);
       pollTimer = null;
     }
-  }
-
-  function getHostKey() {
-    let k = "";
-    try {
-      k = localStorage.getItem(STORAGE_HOSTKEY) || "";
-    } catch (e) {
-      /* ignore */
+    if (blackoutTicker) {
+      clearInterval(blackoutTicker);
+      blackoutTicker = null;
     }
-    if (!k) {
-      k = window.prompt("Enter the host key (set as HOST_KEY in Azure) to control the game:") || "";
-      if (k) {
-        try {
-          localStorage.setItem(STORAGE_HOSTKEY, k);
-        } catch (e) {
-          /* ignore */
-        }
-      }
-    }
-    return k;
   }
 
   async function setAct(act) {
     const statusEl = document.getElementById("hostStatus");
-    const key = getHostKey();
-    if (!key) return;
     if (statusEl) statusEl.textContent = "Updating…";
     try {
       const r = await fetch("/api/state", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "x-host-key": key },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ act }),
       });
-      if (r.status === 401) {
-        try {
-          localStorage.removeItem(STORAGE_HOSTKEY);
-        } catch (e) {
-          /* ignore */
-        }
-        if (statusEl) statusEl.textContent = "Host key rejected. Tap a button again to re-enter it.";
-        return;
-      }
       if (!r.ok) {
         if (statusEl) statusEl.textContent = "Couldn't reach the server. Try again.";
         return;
@@ -357,6 +474,20 @@
       );
     if (prev)
       prev.addEventListener("click", () => setAct(Math.max(0, currentAct - 1)));
+
+    const boStart = document.getElementById("boStart");
+    const boPlus = document.getElementById("boPlus");
+    const boStop = document.getElementById("boStop");
+    if (boStart)
+      boStart.addEventListener("click", () =>
+        setBlackout(Date.now() + DEFAULT_BLACKOUT_MS)
+      );
+    if (boPlus)
+      boPlus.addEventListener("click", () => {
+        const base = blackoutUntil > Date.now() ? blackoutUntil : Date.now();
+        setBlackout(base + 60 * 1000);
+      });
+    if (boStop) boStop.addEventListener("click", () => setBlackout(0));
   }
 
   /* ---------- Lock form ---------- */

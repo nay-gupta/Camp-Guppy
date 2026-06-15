@@ -3,6 +3,12 @@ node_modules/
 local.settings.json
 .azure/
 
+# Azurite local storage emulator data
+data/
+__azurite_db*__.json
+__blobstorage__/
+__queuestorage__/
+
 # Logs
 *.log
 

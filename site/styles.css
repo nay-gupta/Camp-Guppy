@@ -38,23 +38,6 @@ body {
   pointer-events: none;
   background: rgba(255, 255, 255, 0);
   z-index: 0;
-  animation: flash 9s infinite;
-}
-@keyframes flash {
-  0%,
-  92%,
-  100% {
-    background: rgba(255, 255, 255, 0);
-  }
-  93% {
-    background: rgba(180, 200, 255, 0.12);
-  }
-  94% {
-    background: rgba(255, 255, 255, 0);
-  }
-  95% {
-    background: rgba(180, 200, 255, 0.18);
-  }
 }
 .rain {
   position: fixed;
@@ -338,6 +321,119 @@ body {
   font-weight: 600;
 }
 
+/* ---------- Collapsible reference sections (players) ---------- */
+.section-fold {
+  margin: 0 0 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0e1a34;
+  padding: 0 1.1rem;
+}
+.section-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.85rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-fold > summary::-webkit-details-marker {
+  display: none;
+}
+.section-fold > summary::after {
+  content: "▸";
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: transform 0.15s ease;
+}
+.section-fold[open] > summary::after {
+  transform: rotate(90deg);
+}
+.fold-title {
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-fold > ul {
+  margin: 0;
+  padding: 0 0 0.95rem 1.2rem;
+  line-height: 1.6;
+}
+.section-fold > ul li {
+  margin: 0.3rem 0;
+}
+
+/* ---------- Current act emphasis + folded past acts (players) ---------- */
+.act.act-now {
+  border-color: rgba(111, 209, 192, 0.45);
+  box-shadow: 0 0 0 1px rgba(111, 209, 192, 0.25), 0 0 18px rgba(111, 209, 192, 0.12);
+}
+.act-now-tag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(111, 209, 192, 0.18);
+  color: var(--accent-2);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.act-fold {
+  background: #0c1428;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0 1.1rem;
+  opacity: 0.85;
+}
+.act-fold > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.act-fold > summary::-webkit-details-marker {
+  display: none;
+}
+.act-fold > summary::after {
+  content: "▸";
+  color: var(--muted);
+  font-size: 0.85rem;
+  transition: transform 0.15s ease;
+}
+.act-fold[open] > summary::after {
+  transform: rotate(90deg);
+}
+.act-fold-title {
+  color: var(--accent-2);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+.act-fold-hint {
+  margin-left: auto;
+  color: #6f80a2;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.act-fold > ul {
+  margin: 0;
+  padding: 0 0 0.85rem 1.15rem;
+  line-height: 1.6;
+}
+.act-fold > ul li {
+  margin: 0.3rem 0;
+}
+.act-fold > ul li.kill {
+  color: #ffd0a8;
+  font-weight: 600;
+}
+
 .footer-note {
   margin-top: 1.6rem;
   text-align: center;
@@ -374,6 +470,152 @@ body {
   color: #6f80a2;
   font-size: 0.9rem;
   font-style: italic;
+}
+
+/* ---------- The Blackout (shared, players) ---------- */
+.blackout {
+  background: rgba(91, 110, 160, 0.12);
+  border: 1px solid rgba(140, 160, 210, 0.28);
+  border-left: 3px solid #8ca0d2;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+}
+.blackout h3 {
+  color: #b9c6ee;
+  border-bottom-color: rgba(140, 160, 210, 0.3);
+}
+.blackout p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #d6deff;
+}
+
+/* ---------- Host blackout control panel ---------- */
+.blackout-panel {
+  background: rgba(91, 110, 160, 0.12);
+  border: 1px solid rgba(140, 160, 210, 0.28);
+  border-left: 3px solid #8ca0d2;
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+}
+.blackout-panel h3 {
+  color: #b9c6ee;
+  border-bottom-color: rgba(140, 160, 210, 0.3);
+}
+.bo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+.bo-panel-clock {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #d6deff;
+  min-width: 3.5rem;
+  text-align: right;
+}
+.bo-panel-note {
+  margin: 0 0 0.7rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.bo-actions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+.bo-actions li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "emoji name" "emoji act";
+  column-gap: 0.6rem;
+  align-items: start;
+  background: #0e1a34;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+}
+.bo-emoji {
+  grid-area: emoji;
+  font-size: 1.3rem;
+  align-self: center;
+}
+.bo-name {
+  grid-area: name;
+  color: var(--accent-2);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.bo-act {
+  grid-area: act;
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* ---------- Player inline blackout callout (live) ---------- */
+.blackout-live {
+  position: relative;
+  background: radial-gradient(circle at 30% 0%, #14203f 0%, #0a1124 100%);
+  border: 1px solid rgba(140, 160, 210, 0.45);
+  border-left: 4px solid #8ca0d2;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem 1.2rem;
+  box-shadow: 0 0 24px rgba(140, 160, 210, 0.28);
+}
+.bo-live-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(140, 160, 210, 0.25);
+}
+.bo-live-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #aebbe6;
+  animation: bo-flicker 2.4s infinite;
+}
+.bo-live-clock {
+  font-variant-numeric: tabular-nums;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #eef2ff;
+  text-shadow: 0 0 18px rgba(140, 160, 210, 0.5);
+}
+.bo-live-action {
+  margin: 0.95rem 0 0;
+  color: #eef2ff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.bo-live-hint {
+  margin: 0.7rem 0 0;
+  color: #b3c0e6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+@keyframes bo-flicker {
+  0%, 100% { opacity: 1; }
+  48% { opacity: 1; }
+  50% { opacity: 0.35; }
+  52% { opacity: 1; }
+  70% { opacity: 0.6; }
+  72% { opacity: 1; }
 }
 
 /* ---------- Secret objectives (players) ---------- */

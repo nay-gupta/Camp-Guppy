@@ -1,15 +1,16 @@
 "use strict";
 
 /*
- * GET  /api/state            -> { act: <number> }   (public; players poll this)
- * POST /api/state            -> { act: <number> }   (host only)
- *      headers: x-host-key: <HOST_KEY>
- *      body:    { "act": <number> }
+ * GET  /api/state            -> { act: <number>, blackoutUntil: <number> }
+ *                               (public; players poll this)
+ * POST /api/state            -> { act, blackoutUntil }   (host controls)
+ *      body:    { "act": <number> }            advance the live phase
+ *      body:    { "blackoutUntil": <epochMs> } start/extend the blackout timer
+ *      body:    { "blackoutUntil": 0 }         clear the blackout
  *
  * State is stored in Azure Table Storage so it survives across function
- * instances. Configure these Application Settings on the Static Web App:
+ * instances. Configure this Application Setting on the Static Web App:
  *   - AZURE_STORAGE_CONNECTION_STRING  (a Storage account connection string)
- *   - HOST_KEY                         (a secret only you, the host, know)
  */
 
 const { TableClient } = require("@azure/data-tables");
@@ -41,13 +42,17 @@ async function ensureTable(client) {
   }
 }
 
-async function readAct(client) {
+async function readState(client) {
   try {
     const entity = await client.getEntity(PARTITION, ROW);
     const act = Number(entity.act);
-    return Number.isFinite(act) ? act : 0;
+    const blackoutUntil = Number(entity.blackoutUntil);
+    return {
+      act: Number.isFinite(act) ? act : 0,
+      blackoutUntil: Number.isFinite(blackoutUntil) ? blackoutUntil : 0,
+    };
   } catch (e) {
-    if (e && e.statusCode === 404) return 0; // not set yet
+    if (e && e.statusCode === 404) return { act: 0, blackoutUntil: 0 }; // not set yet
     throw e;
   }
 }
@@ -66,29 +71,31 @@ module.exports = async function (context, req) {
     await ensureTable(client);
 
     if (req.method === "GET") {
-      const act = await readAct(client);
-      return json(200, { act });
+      const state = await readState(client);
+      return json(200, state);
     }
 
-    // POST — host only
-    const provided = req.headers["x-host-key"] || "";
-    const expected = process.env.HOST_KEY || "";
-    if (!expected) {
-      return json(500, { error: "HOST_KEY is not configured on the server." });
-    }
-    if (provided !== expected) {
-      return json(401, { error: "Unauthorized" });
+    // POST — host controls (advance phase and/or set the blackout timer).
+    const current = await readState(client);
+    const body = req.body || {};
+    let { act, blackoutUntil } = current;
+
+    if (body.act !== undefined) {
+      let a = Number(body.act);
+      if (!Number.isFinite(a)) a = 0;
+      act = Math.max(0, Math.min(MAX_ACT, Math.round(a)));
     }
 
-    let act = Number(req.body && req.body.act);
-    if (!Number.isFinite(act)) act = 0;
-    act = Math.max(0, Math.min(MAX_ACT, Math.round(act)));
+    if (body.blackoutUntil !== undefined) {
+      let b = Number(body.blackoutUntil);
+      blackoutUntil = Number.isFinite(b) && b > 0 ? Math.round(b) : 0;
+    }
 
     await client.upsertEntity(
-      { partitionKey: PARTITION, rowKey: ROW, act },
+      { partitionKey: PARTITION, rowKey: ROW, act, blackoutUntil },
       "Replace"
     );
-    return json(200, { act });
+    return json(200, { act, blackoutUntil });
   } catch (err) {
     context.log.error("state function error:", err);
     return json(500, { error: "Server error" });

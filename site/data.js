@@ -12,6 +12,8 @@ const GAME = {
   subtitle: "A Murder Mystery",
   setting:
     "The final night of camp. The kids are gone, the counselors are partying in the main cabin, and a thunderstorm is rolling in over the lake.",
+  blackout:
+    "At one point in Act I, the storm knocks the power out and the host calls a BLACKOUT. For a few minutes everyone scatters in the dark. You won't really act this out in real time, so here's how it works: when the host calls it, quietly carry out the blackout action written on YOUR card (slip off with someone, head to your car, go down by the lake, whatever you were told). You only know what YOUR character did. You do NOT see or hear what anyone else got up to unless your own card already tells you. When the lights come back, everyone drifts back into the cabin acting normal, and the Archery Counselor is nowhere to be found.",
 };
 
 const CHARACTERS = [
@@ -23,24 +25,28 @@ const CHARACTERS = [
     emoji: "🏹",
     role: "player",
     tagline: "Head counselor. Safety first. The one everyone trusts.",
+    blackoutAction:
+      "Goes to the emergency phone at the camp entrance and dials 911, then is murdered near the phone by the Camp Director. Goes quiet / 'dead' afterward.",
+    blackoutPlayer:
+      "Slip outside to the emergency phone at the camp entrance and dial 911. During the dark you're murdered near the phone, so go quiet and start observing as a 'ghost.'",
     note:
-      "You kick off the game and you are the victim. Play Act I fully — you'll return at the very end as a ghost.",
+      "You kick off the game and you are the victim. Play Act I fully. You'll return at the very end as a ghost.",
     personality: [
-      "Head Counselor — you run a tight, caring ship.",
+      "Head Counselor. You run a tight, caring ship.",
       "No nonsense. Safety first, always.",
       "You genuinely love the campers and the camp.",
       "You are a REAL camper at heart.",
     ],
     secrets: [
       "You saw the Camp Director strike a camper in the face.",
-      "You're staying cool about it — you plan to tell the Wealthy Land Owner AFTER the party.",
+      "You're staying cool about it. You plan to tell the Wealthy Land Owner AFTER the party.",
       "You're slated to take the Camp Director's job.",
       "You buy from the Cook (quietly).",
     ],
     relationships: [
-      "Camp Director — you have dirt on them and they know their time is up.",
-      "Lifeguard — keeps making advances; you keep rejecting them.",
-      "Counselor in Training — you told them there are no counselor openings next year.",
+      "Camp Director: you have dirt on them, and they know their time is up.",
+      "Lifeguard: keeps making advances; you keep rejecting them.",
+      "Counselor in Training: you told them there are no counselor openings next year.",
     ],
     objectives: {
       Intro: ["Set the tone as the trusted, caring head counselor everyone looks up to."],
@@ -59,7 +65,7 @@ const CHARACTERS = [
         "Have a tense, serious conversation with the Camp Director early on.",
         "When the power cuts out and it's pitch black, slip outside to the emergency phone at the camp entrance and dial 911.",
         "The Counselor in Training follows you to 'gain experience' but gets lost in the storm.",
-        "⚠️ During the blackout you are murdered near the emergency phone. After this, you are 'dead' — step back and observe quietly.",
+        "⚠️ During the blackout you are murdered near the emergency phone. After this, you are 'dead.' Step back and observe quietly.",
       ],
       Finale: [
         "The Useless Detective is secretly a medium.",
@@ -76,35 +82,39 @@ const CHARACTERS = [
     emoji: "🏕️",
     role: "player",
     tagline: "Caring. Holier-than-thou. A little delulu.",
-    note: "You're cornered tonight — years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on.",
+    blackoutAction:
+      "Sits in their car for the parent's voicemail, cries, walks to the lake, finds Maintenance's hammer in the woods, KILLS the Archery Counselor (hammer to the temple), hides the body in the mud, plants the hammer in the CiT's backpack, then returns with the crowd.",
+    blackoutPlayer:
+      "Sit in your car and listen to the parent's voicemail, then slip down toward the lake and carry out your Act I plan in the dark. (Your playbook has the full sequence.)",
+    note: "You're cornered tonight, and years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on.",
     personality: [
-      "'Caring' and full of kumbaya energy.",
-      "Holier-than-thou and a little delusional.",
-      "Never did drugs… except a little K, that one time.",
+      "'Caring' and full of kumbaya energy",
+      "Holier-than-thou and a little delulu",
+      "Never did drugs, except a little K, that one time.",
     ],
     secrets: [
-      "You struck a camper in the face — and the Archery Counselor saw you.",
+      "You struck a camper in the face, and the Archery Counselor saw you.",
       "Years of skeletons in the closet: physically abusing campers.",
       "A parent left a voicemail threatening legal action.",
       "The Archery Counselor is about to take your job. You're at a dead end and about to be labeled an abuser.",
     ],
     relationships: [
-      "Archery Counselor — knows about the camper you struck; about to replace you.",
-      "Wealthy Land Owner — you accidentally let slip that a marijuana garden was found on camp grounds.",
-      "Counselor in Training — an overeager newbie, easy to push around.",
-      "Maintenance — a sloppy drunk who's always misplacing their tools.",
+      "Archery Counselor: knows about the camper you struck; about to replace you.",
+      "Wealthy Land Owner: you accidentally let slip that a marijuana garden was found on camp grounds.",
+      "Counselor in Training: an overeager newbie, easy to push around.",
+      "Maintenance: a sloppy drunk who's always misplacing their tools.",
     ],
     objectives: {
       "Act I": [
-        "Have your tense moment with the Archery Counselor early — keep it cryptic.",
+        "Have your tense moment with the Archery Counselor early, and keep it cryptic.",
         "Keep your reason for slipping out to yourself; have a cover ready if asked.",
       ],
       "Act II": [
         "Take charge of the scene so no one looks too closely at you.",
-        "Make at least two people doubt Maintenance — careless, sloppy, not to be trusted.",
+        "Make at least two people doubt Maintenance: careless, sloppy, not to be trusted.",
       ],
       "Act III": [
-        "Keep suspicion off you as long as you can — deflect, redirect, and survive.",
+        "Keep suspicion off you as long as you can: deflect, redirect, and survive.",
       ],
     },
     acts: {
@@ -112,7 +122,7 @@ const CHARACTERS = [
         "Have a tense, serious conversation with the Archery Counselor.",
         "When the lights cut out, go to your car to listen to a voicemail from a parent (it's a legal threat).",
         "Cry in the car, then walk down by the lake to be in your feelings.",
-        "Feel something at your feet in the woods — it's a muddy hammer stamped 'Property of Camp Guppy' (Maintenance lost it).",
+        "Feel something at your feet in the woods: a muddy hammer stamped 'Property of Camp Guppy' (Maintenance lost it).",
         "Spot the Archery Counselor near the emergency phone, with the Counselor in Training frazzled nearby.",
         "🔪 This is your chance: hammer → temple → dead. Dispose of the body in the mud across the way.",
         "Slip the hammer into the Counselor in Training's backpack.",
@@ -120,15 +130,15 @@ const CHARACTERS = [
       ],
       "Act II": [
         "Say you found the Counselor in Training wandering alone in the storm.",
-        "When the body is found, take charge: 'Everyone remain calm. We need to stick together — there could be a murderer among us!'",
-        "Once a hammer is suspected: push hard — 'We need to find that hammer!'",
+        "When the body is found, take charge: 'Everyone remain calm. We need to stick together, there could be a murderer among us!'",
+        "Once a hammer is suspected: push hard. 'We need to find that hammer!'",
       ],
       "Act III": [
-        "Try to coax a 'confession' out of Maintenance — tell them 'it's ok.'",
+        "Try to coax a 'confession' out of Maintenance: tell them 'it's ok.'",
         "Join Maintenance when they leave to drink, to 'calm them down.'",
         "⚠️ The group will turn on you, detain you, and tie you up in another room.",
         "While restrained, the Useless Detective will privately tell you exactly how you killed the Archery Counselor.",
-        "💀 You're handed a drink that was secretly spiked while everyone gossiped — you take it into the room, choke, and die. Play it out.",
+        "💀 You're handed a drink that was secretly spiked while everyone gossiped. You take it into the room, choke, and die. Play it out.",
       ],
     },
   },
@@ -141,22 +151,26 @@ const CHARACTERS = [
     emoji: "🎒",
     role: "player",
     tagline: "Eager teenage newbie who'll do anything to get ahead.",
-    note: "Something doesn't add up tonight, and the blame keeps drifting your way. You know you did nothing wrong — prove it as the night moves on.",
+    blackoutAction:
+      "Follows the Archery Counselor to 'learn the ropes,' gets lost in the storm, and yells for help. The Camp Director 'finds' them and walks them back.",
+    blackoutPlayer:
+      "Follow the Archery Counselor into the dark to 'learn the ropes.' Get lost in the storm and yell for help until someone finds you and walks you back.",
+    note: "Something doesn't add up tonight, and the blame keeps drifting your way. You know you did nothing wrong, so prove it as the night moves on.",
     personality: [
       "A teenager and a total newbie to the place.",
       "Motivated, chipper, and desperate to impress.",
-      "Always wear a small backpack — ready for any situation!",
+      "Always wear a small backpack, ready for any situation!",
       "Will do anything to get ahead.",
     ],
     secrets: [
-      "Archery Counselor told you there's no room to be a full counselor next year — every slot is taken.",
+      "Archery Counselor told you there's no room to be a full counselor next year. Every slot is taken.",
       "You learn 'what counselors do' purely from common sense.",
       "Something incriminating ends up tucked in YOUR backpack. You have no idea how it got there.",
     ],
     relationships: [
-      "Archery Counselor — your idol; told you there's no job for you next year.",
-      "Camp Director — 'rescued' you in the storm (really, they were framing you).",
-      "Nurse — comes to believe you're innocent and helps you.",
+      "Archery Counselor: your idol; told you there's no job for you next year.",
+      "Camp Director: 'rescued' you in the storm when you'd gotten lost.",
+      "Nurse: comes to believe you're innocent and helps you.",
     ],
     objectives: {
       "Act I": ["Shadow the Archery Counselor to 'learn the ropes.'"],
@@ -175,14 +189,14 @@ const CHARACTERS = [
       "Act II": [
         "When the body is found, cry.",
         "Get accidentally hurt while Survival Skills shows off their 'tracking.'",
-        "Later, get water from your backpack — and spot the hammer hidden inside. (The Nurse sees it too and shrieks.)",
+        "Later, get water from your backpack and spot the hammer hidden inside. (The Nurse sees it too and shrieks.)",
       ],
       "Act III": [
-        "Get questioned about the hammer. Insist you're innocent — you don't know how it got there.",
+        "Get questioned about the hammer. Insist you're innocent. You don't know how it got there.",
         "Mention (again) that the Camp Director found you while you were following the Archery Counselor.",
         "Talk it through with the Nurse; together connect the clues that point at the Camp Director.",
         "Help spread the rumor that the Camp Director did it.",
-        "At the very end, you'll be the one who finds the body — with a rope around the neck.",
+        "At the very end, you'll be the one who finds the body, with a rope around the neck.",
       ],
       Accusation: [
         "Stand up for yourself one last time: you didn't kill anyone.",
@@ -199,34 +213,38 @@ const CHARACTERS = [
     emoji: "🔧",
     role: "player",
     tagline: "Grizzly, aloof, and a bit of an alcoholic.",
-    note: "Your tools have a way of going missing when you drink — and tonight that could make you look very guilty. Keep your wits about you.",
+    blackoutAction:
+      "Heads to the electrical building to 'fix' the lights and notices their hammer is missing from their belt (blames the booze).",
+    blackoutPlayer:
+      "Head out to the electrical building to 'fix' the lights. While you're out there, notice your hammer is missing from your belt.",
+    note: "Your tools have a way of going missing when you drink, and tonight that could make you look very guilty. Keep your wits about you.",
     personality: [
       "A lil grizzly, a lil aloof. About 30.",
       "Pure 'Mutt from Schitt's Creek' energy.",
       "Will take any win.",
-      "A bit of an alcoholic — which makes you sloppy.",
+      "A bit of an alcoholic, which makes you sloppy.",
       "Always have metal tools on your person.",
     ],
     secrets: [
-      "Your hammer ('Property of Camp Guppy') went missing tonight — you lost it, drunk, and don't even know it yet.",
+      "Your hammer ('Property of Camp Guppy') went missing tonight. You lost it, drunk, and don't even know it yet.",
       "You'd rather no one find out about the drinking.",
     ],
     relationships: [
-      "Camp Director — will press you for a 'confession.'",
-      "Wealthy Land Owner — will try to pay you to make it all disappear.",
+      "Camp Director: will press you for a 'confession.'",
+      "Wealthy Land Owner: will try to pay you to make it all disappear.",
     ],
     objectives: {
       "Act I": ["Keep your drinking to yourself."],
       "Act II": [
         "Deflect anyone who asks why your tool belt looks light.",
-        "Don't become suspect number one — nudge attention toward someone else.",
+        "Don't become suspect number one. Nudge attention toward someone else.",
       ],
       "Act III": ["Find out who could have taken your hammer in the dark."],
     },
     acts: {
       "Act I": [
         "When the lights die, head out to the electrical building 'to fix them.'",
-        "Notice tools missing from your belt — the hammer's gone. Blame the booze.",
+        "Notice tools missing from your belt. The hammer's gone. Blame the booze.",
       ],
       "Act II": [
         "Claim you fixed the lights (really, they came back on by themselves).",
@@ -240,7 +258,7 @@ const CHARACTERS = [
         "Storm off to drink. The Camp Director follows to 'calm you down,' and the gang trails along.",
       ],
       Accusation: [
-        "Insist you were framed — someone stole your hammer to set you up.",
+        "Insist you were framed: someone stole your hammer to set you up.",
         "Name the Camp Director as the real killer.",
       ],
     },
@@ -254,16 +272,20 @@ const CHARACTERS = [
     emoji: "🛟",
     role: "player",
     tagline: "Super dumb. Super hot.",
+    blackoutAction:
+      "Sneaks off to a car with the Alumnus to make out, and through the window glimpses a figure cross toward the lake. It's the Camp Director, but they can't tell who.",
+    blackoutPlayer:
+      "Sneak off to a car with the Alumnus to make out. Through the rain-streaked window, catch a glimpse of someone crossing toward the lake, but you can't tell who it is.",
     note: "Secretly in love with the Archery Counselor.",
     personality: ["Super dumb.", "Super hot.", "Wears feelings poorly."],
     secrets: [
-      "You're secretly in love with the Archery Counselor — never made it known.",
+      "You're secretly in love with the Archery Counselor, and you never made it known.",
       "You flirt with the Alumnus mainly to make the Archery Counselor jealous.",
-      "From the car during the blackout, you half-saw a figure cross toward the lake and woods — away from the party. You couldn't tell who it was.",
+      "From the car during the blackout, you half-saw a figure cross toward the lake and woods, away from the party. You couldn't tell who it was.",
     ],
     relationships: [
-      "Archery Counselor — your secret love; keeps rejecting you.",
-      "Alumnus — your blackout make-out alibi.",
+      "Archery Counselor: your secret love; keeps rejecting you.",
+      "Alumnus: your blackout make-out alibi.",
     ],
     objectives: {
       "Act I": [
@@ -271,7 +293,7 @@ const CHARACTERS = [
         "Fish for any hint the Archery Counselor ever felt anything for you.",
       ],
       "Act II": [
-        "You saw a figure head toward the lake in the dark — decide who you trust enough to tell.",
+        "You saw a figure head toward the lake in the dark. Decide who you trust enough to tell.",
         "Keep the car make-out quiet unless you need it as an alibi.",
       ],
       "Act III": [
@@ -282,17 +304,17 @@ const CHARACTERS = [
     acts: {
       "Act I": [
         "When it goes dark, sneak off with the Alumnus to make out in a car.",
-        "Make a point of being seen leaving together — you want the Archery Counselor to notice.",
-        "Through the rain-streaked window, glimpse a figure crossing toward the lake and woods. You can't tell who — but they were NOT heading back to the party.",
+        "Make a point of being seen leaving together. You want the Archery Counselor to notice.",
+        "Through the rain-streaked window, glimpse a figure crossing toward the lake and woods. You can't tell who, but they were NOT heading back to the party.",
       ],
       "Act II": [
         "Go along with whatever cover story the Alumnus invents.",
-        "At the body, stand motionless and distraught — but hide how much it guts you.",
+        "At the body, stand motionless and distraught, but hide how much it guts you.",
         "Be the one who shows the body to the Useless Detective (the Wealthy Land Owner won't like it).",
-        "Let slip that you saw 'someone' moving toward the lake during the blackout — watch who gets nervous.",
+        "Let slip that you saw 'someone' moving toward the lake during the blackout, and watch who gets nervous.",
       ],
       "Act III": [
-        "Hint that you were with the Alumnus — feel dirty talking about it with the Archery Counselor's body outside.",
+        "Hint that you were with the Alumnus. It feels dirty talking about it with the Archery Counselor's body outside.",
         "Press your point: whoever was out by the lake had no business being there. Help the group narrow it down.",
         "Burn for revenge once the trail points at the Camp Director.",
       ],
@@ -310,6 +332,10 @@ const CHARACTERS = [
     emoji: "⚽",
     role: "player",
     tagline: "Lives in the glory days. Thinks they're still a counselor.",
+    blackoutAction:
+      "Slips away to a car with the Lifeguard to make out.",
+    blackoutPlayer:
+      "Slip away to a car with the Lifeguard to make out, and make sure you were seen leaving together.",
     note: "Your child was wronged at this camp, and you're simmering with quiet anger. Your story deepens as the night moves on.",
     personality: [
       "Won't stop talking about the glory days back when you were a camper.",
@@ -320,12 +346,12 @@ const CHARACTERS = [
       "Your child was repeatedly beaten by the Camp Director.",
     ],
     relationships: [
-      "Lifeguard — your low-key flirtation and blackout alibi.",
-      "Camp Director — beat your child. You'll never forgive them.",
-      "Nurse — always gloved, with a first aid kit full of meds.",
+      "Lifeguard: your low-key flirtation and blackout alibi.",
+      "Camp Director: beat your child. You'll never forgive them.",
+      "Nurse: always gloved, with a first aid kit full of meds.",
     ],
     objectives: {
-      "Act I": ["Slip away with the Lifeguard — and make sure you're seen doing it."],
+      "Act I": ["Slip away with the Lifeguard, and make sure you're seen doing it."],
       "Act II": ["Let your anger at the Camp Director start to boil over in public."],
       "Act III": [
         "Quietly confirm with the Nurse that the Camp Director is the one who hurt your child.",
@@ -342,10 +368,10 @@ const CHARACTERS = [
       "Act III": [
         "Hint that you were with the Lifeguard.",
         "🔪 While everyone is gossiping and plotting against the restrained Camp Director, slip the Nurse's stolen meds into the Camp Director's drink.",
-        "The Camp Director takes that drink into the room and dies — your revenge for your beaten child.",
+        "The Camp Director takes that drink into the room and dies. Your revenge for your beaten child.",
       ],
       Accusation: [
-        "Rage at the Camp Director publicly — but be careful not to reveal you already took your revenge.",
+        "Rage at the Camp Director publicly, but be careful not to reveal you already took your revenge.",
       ],
     },
   },
@@ -358,22 +384,26 @@ const CHARACTERS = [
     emoji: "🍳",
     role: "player",
     tagline: "Stoner. Everyone's chill with him.",
+    blackoutAction:
+      "Talks with the Wealthy Land Owner about their marijuana operation.",
+    blackoutPlayer:
+      "Find the Wealthy Land Owner in the dark and talk shop about your operation.",
     note: "You run a secret weed operation with the Wealthy Land Owner.",
     personality: ["Resident stoner.", "Everyone is chill with you.", "Unbothered, mostly."],
     secrets: [
-      "You deal to the counselors — Survival Skills, Archery Counselor, Lifeguard, and more.",
+      "You deal to the counselors: Survival Skills, Archery Counselor, Lifeguard, and more.",
       "You run a marijuana operation on camp grounds with the Wealthy Land Owner.",
     ],
     relationships: [
-      "Wealthy Land Owner — your boss in the operation; will blackmail you.",
-      "Nurse — has a crush on you (doesn't know you're a stoner).",
+      "Wealthy Land Owner: your boss in the operation; will blackmail you.",
+      "Nurse: has a crush on you (doesn't know you're a stoner).",
     ],
     objectives: {
-      "Act I": ["Talk shop with the Wealthy Land Owner in the dark — and watch who's listening."],
+      "Act I": ["Talk shop with the Wealthy Land Owner in the dark, and watch who's listening."],
       "Act II": ["Redirect anyone who brings up 'abuse' or 'the operation.'"],
       "Act III": [
         "Find out how much the Nurse actually overheard.",
-        "Stay on the Wealthy Land Owner's good side — your safety depends on it.",
+        "Stay on the Wealthy Land Owner's good side. Your safety depends on it.",
       ],
     },
     acts: {
@@ -387,13 +417,13 @@ const CHARACTERS = [
         "When 'abuse' comes up, assume they mean substance abuse.",
       ],
       "Act III": [
-        "Add to Survival Skills' ridiculous story — anything to pull attention off the operation.",
+        "Add to Survival Skills' ridiculous story, anything to pull attention off the operation.",
         "⚠️ The Wealthy Land Owner blackmails you to kill the Camp Director (or you take the fall for the whole drug operation).",
         "With the Nurse, find the Camp Director's body and loop a rope around the neck post-mortem to frame him.",
         "The Wealthy Land Owner verifies your work.",
       ],
       Accusation: [
-        "Play it cool and point at the Camp Director — the more the room agrees, the less anyone wonders where YOU were.",
+        "Play it cool and point at the Camp Director. The more the room agrees, the less anyone wonders where YOU were.",
       ],
     },
   },
@@ -406,24 +436,28 @@ const CHARACTERS = [
     emoji: "🩹",
     role: "player",
     tagline: "Germaphobe. Always gloved. Always anxious.",
-    note: "You carry drugs — and you notice everything.",
+    blackoutAction:
+      "Secretly follows the Cook to make a move, but overhears the drug operation instead.",
+    blackoutPlayer:
+      "Secretly follow the Cook to make your move in the dark, but instead overhear something you weren't meant to.",
+    note: "You carry drugs, and you notice everything.",
     personality: [
-      "Germaphobe — always, always wearing gloves.",
+      "Germaphobe, always, always wearing gloves.",
       "Deeply anxious.",
-      "Carry a first aid kit… with drugs in it.",
+      "Carry a first aid kit with drugs in it.",
     ],
     secrets: [
       "You have a crush on the Cook (you don't know he's a stoner).",
-      "You bandage campers a lot — camping scrapes, fights, or… something worse.",
+      "You bandage campers a lot: camping scrapes, fights, or something worse.",
       "Your gloves mean you never leave fingerprints.",
     ],
     relationships: [
-      "Cook — your crush; you'd do anything for him.",
-      "Counselor in Training — you come to believe they're innocent.",
-      "Camp Director — you suspect they're the violent one hurting kids.",
+      "Cook: your crush; you'd do anything for him.",
+      "Counselor in Training: you come to believe they're innocent.",
+      "Camp Director: you suspect they're the violent one hurting kids.",
     ],
     objectives: {
-      "Act I": ["Trail the Cook in the dark — you've got a crush to act on."],
+      "Act I": ["Trail the Cook in the dark. You've got a crush to act on."],
       "Act II": ["Start quietly working out who's been hurting the campers."],
       "Act III": [
         "Get closer to the Cook.",
@@ -437,14 +471,14 @@ const CHARACTERS = [
       ],
       "Act II": [
         "Make up a cover story for the blackout.",
-        "At the body, run away — dropping your first aid kit. You have a suspicion brewing…",
+        "At the body, run away, dropping your first aid kit. You have a suspicion brewing.",
         "When the hammer appears in the Counselor in Training's backpack, you see it and shriek.",
       ],
       "Act III": [
         "Talk to the Counselor in Training; you believe they didn't do it.",
-        "Reveal what you know: kids have been beaten — someone violent and dangerous is at this camp.",
+        "Reveal what you know: kids have been beaten. Someone violent and dangerous is at this camp.",
         "Connect the clues with the Counselor in Training to point at the Camp Director.",
-        "⚠️ Your stolen meds are what the Alumnus slips into the Camp Director's drink during the gossip. Afterward, with the Cook, find the body and stage a rope around the neck to frame the Camp Director.",
+        "⚠️ At some point you notice your sedatives have gone missing from the kit. Later, with the Cook, find the Camp Director's body and stage a rope around the neck to frame the Camp Director.",
       ],
       Accusation: [
         "Lay out your evidence calmly: kids were beaten, and the clues all point at the Camp Director.",
@@ -460,20 +494,24 @@ const CHARACTERS = [
     emoji: "🧭",
     role: "player",
     tagline: "All boast, no skill. A camp Gilderoy Lockhart.",
+    blackoutAction:
+      "Goes outside to stand under a tree by the lake in the lightning ('the safest place to be').",
+    blackoutPlayer:
+      "Head outside and stand under a tree by the lake in the lightning, 'the safest place to be.'",
     note: "Comic relief who keeps hurting people by accident.",
     personality: [
-      "Pure Gilderoy Lockhart: brag endlessly about your skills and nature knowledge…",
-      "…while actually knowing and doing nothing.",
+      "Pure Gilderoy Lockhart: you brag endlessly about your skills and nature knowledge.",
+      "But you actually know and do nothing.",
       "Accidentally injure people whenever you try to strut your stuff.",
     ],
     secrets: [
       "You buy from the Cook.",
       "You couldn't track a muddy elephant across a white carpet.",
-      "During the blackout you were out by the treeline near the lake — the same direction the real killer went. You have NO useful info, but you were definitely seen out there.",
+      "During the blackout you were out by the treeline near the lake. You have NO useful info, but you were definitely seen out there.",
     ],
     relationships: [
-      "Cook — your dealer.",
-      "Counselor in Training — keeps getting hurt by your 'demonstrations.'",
+      "Cook: your dealer.",
+      "Counselor in Training: keeps getting hurt by your 'demonstrations.'",
     ],
     objectives: {
       "Act I": ["Do something absurd 'for everyone's safety' during the storm."],
@@ -483,23 +521,23 @@ const CHARACTERS = [
       ],
       "Act III": [
         "Never let anyone learn you buy from the Cook.",
-        "Brag about your 'lakeside vigil' under the tree — without realizing it puts YOU near where the killer went.",
+        "Brag about your 'lakeside vigil' under the tree, without realizing it makes you look suspicious.",
       ],
     },
     acts: {
-      "Act I": ["When it storms, go stand under a tree by the lake in the lightning — 'the safest place to be!' (This is the same direction the real killer went — pure coincidence.)"],
+      "Act I": ["When it storms, go stand under a tree by the lake in the lightning. 'The safest place to be!'"],
       "Act II": [
         "Claim you were keeping everyone safe and hoped they'd join you.",
-        "Show off your 'tracking' at the body — your deductions make zero sense and hurt the Counselor in Training.",
+        "Show off your 'tracking' at the body. Your deductions make zero sense and hurt the Counselor in Training.",
         "Insist you'd never use a hammer: you'd use a far more sophisticated method, like hunting a wild chupacabra. (Let the gang question this.)",
       ],
       "Act III": [
         "Spin an absurd, unbelievable tale that you tried to save everyone from the storm.",
-        "Brag that you held a 'vigil' under the tree by the lake — accidentally making yourself a suspect when the Lifeguard mentions seeing someone head that way.",
-        "Offer to build traps to incapacitate the Camp Director — and provide the rope from your tent.",
+        "Brag that you held a 'vigil' under the tree by the lake, accidentally making yourself a suspect when the Lifeguard mentions seeing someone head that way.",
+        "Offer to build traps to incapacitate the Camp Director, and provide the rope from your tent.",
       ],
       Accusation: [
-        "Deliver a wildly overconfident 'expert reconstruction' of the crime — wrong on every detail, but somehow it still lands on the Camp Director.",
+        "Deliver a wildly overconfident 'expert reconstruction' of the crime, wrong on every detail, but somehow it still lands on the Camp Director.",
       ],
     },
   },
@@ -512,9 +550,13 @@ const CHARACTERS = [
     emoji: "💰",
     role: "player",
     tagline: "Old money. Quietly terrifying.",
+    blackoutAction:
+      "Talks with the Cook about their marijuana operation.",
+    blackoutPlayer:
+      "Find the Cook in the dark and talk over your operation.",
     note: "You'll do anything to keep the camp out of the headlines.",
     personality: [
-      "Old money — your family stole this camp land from the natives generations ago.",
+      "Old money. Your family stole this camp land from the natives generations ago.",
       "Everyone is a little intimidated by you.",
       "You see the Camp Director and Archery Counselor as your points of contact for camp matters.",
     ],
@@ -524,11 +566,11 @@ const CHARACTERS = [
       "Above all: no scandal can touch this camp.",
     ],
     relationships: [
-      "Cook — your partner in the operation; expendable if needed.",
-      "Camp Director — let slip to you that a marijuana garden was found on the grounds.",
+      "Cook: your partner in the operation; expendable if needed.",
+      "Camp Director: let slip to you that a marijuana garden was found on the grounds.",
     ],
     objectives: {
-      Intro: ["Make your entrance land — you're the intimidating one everyone answers to."],
+      Intro: ["Make your entrance land. You're the intimidating one everyone answers to."],
       "Act II": ["Push to keep any scandal far away from the camp's name."],
       "Act III": [
         "Find out who knows about the marijuana garden, and contain it.",
@@ -538,17 +580,17 @@ const CHARACTERS = [
     acts: {
       Intro: [
         "After the announcement and reading your card, LEAVE the room until in-game chatter has gone on a few minutes.",
-        "You've heard the Camp Director had an errand to run — so ask around for the Archery Counselor to be properly introduced.",
+        "You've heard the Camp Director had an errand to run, so ask around for the Archery Counselor to be properly introduced.",
       ],
       "Act I": ["During the blackout, talk with the Cook about your operation."],
       "Act II": [
         "Make up a cover story for the blackout.",
-        "Push to keep everything on the DL: offer to pay for a funeral so everyone can move on — you want zero attention on this camp.",
+        "Push to keep everything on the DL: offer to pay for a funeral so everyone can move on. You want zero attention on this camp.",
         "When 'abuse' comes up, assume they mean abuse of power.",
       ],
       "Act III": [
         "Try to pay Maintenance to make the whole thing disappear.",
-        "Blackmail the Cook into killing the Camp Director — frame him for the drug operation, or worse, if he refuses.",
+        "Blackmail the Cook into killing the Camp Director: frame him for the drug operation, or worse, if he refuses.",
         "After the Camp Director dies, verify the Cook and Nurse's staged rope-framing.",
       ],
       Accusation: [
@@ -765,14 +807,14 @@ const CLUES = [
     emoji: "🩺",
     title: "Detective's Field Notes",
     reveal: "Act II — after you examine the body",
-    body: "Cause of death: a single blunt blow to the left temple. Consistent with a heavy tool — a wrench, a rock, a pipe… or a hammer.",
+    body: "Cause of death: a single blunt blow to the left temple. Consistent with a heavy tool, like a wrench, a rock, a pipe, or a hammer.",
   },
   {
     id: "voicemail",
     emoji: "📞",
     title: "Voicemail Transcript",
     reveal: "Act III — if players search the Camp Director's car/phone",
-    body: "“This is Jordan's parent. We KNOW what you did to our child. You'll be hearing from our lawyer — and you will never work near children again.”",
+    body: "“This is Jordan's parent. We KNOW what you did to our child. You'll be hearing from our lawyer, and you will never work near children again.”",
   },
   {
     id: "911",
@@ -786,21 +828,21 @@ const CLUES = [
     emoji: "💊",
     title: "First Aid Kit Inventory",
     reveal: "Act III — after the Nurse drops the kit",
-    body: "Bandages, gauze, gloves… and an empty slot where a bottle of strong sedatives should be. Someone took the meds.",
+    body: "Bandages, gauze, gloves, and an empty slot where a bottle of strong sedatives should be. Someone took the meds.",
   },
   {
     id: "rope",
     emoji: "🪢",
     title: "The Rope",
     reveal: "Act III — when the Camp Director's body is found",
-    body: "A length of camp rope, cut from a tent line. Looped around the Camp Director's neck — but the marks don't match the way they actually died.",
+    body: "A length of camp rope, cut from a tent line. Looped around the Camp Director's neck, but the marks don't match the way they actually died.",
   },
   {
     id: "toolbelt",
     emoji: "🧰",
     title: "Maintenance Tool Belt",
     reveal: "Act II — when the hammer's owner is questioned",
-    body: "A worn leather tool belt with one conspicuously empty loop — exactly hammer-shaped. The wearer smells faintly of whiskey.",
+    body: "A worn leather tool belt with one empty loop, exactly hammer-shaped. The wearer smells faintly of whiskey.",
   },
 ];
 

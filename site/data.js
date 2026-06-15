@@ -86,7 +86,7 @@ const CHARACTERS = [
       "Sits in their car for the parent's voicemail, cries, walks to the lake, finds Maintenance's hammer in the woods, KILLS the Archery Counselor (hammer to the temple), hides the body in the mud, plants the hammer in the CiT's backpack, then returns with the crowd.",
     blackoutPlayer:
       "Sit in your car and listen to the parent's voicemail, then slip down toward the lake and carry out your Act I plan in the dark. (Your playbook has the full sequence.)",
-    note: "You're cornered tonight, and years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on.",
+    note: "You're cornered tonight, and years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on. You die in Act III, but you're not done: you return at the very end as a ghost.",
     personality: [
       "'Caring' and full of kumbaya energy",
       "Holier-than-thou and a little delulu",
@@ -139,6 +139,10 @@ const CHARACTERS = [
         "⚠️ The group will turn on you, detain you, and tie you up in another room.",
         "While restrained, the Useless Detective will privately tell you exactly how you killed the Archery Counselor.",
         "💀 You're handed a drink that was secretly spiked while everyone gossiped. You take it into the room, choke, and die. Play it out.",
+      ],
+      Finale: [
+        "The Useless Detective is secretly a medium.",
+        "You return as a GHOST to be summoned and confess the whole truth: that you killed the Archery Counselor. (The ghost spills everything.)",
       ],
     },
   },
@@ -227,6 +231,7 @@ const CHARACTERS = [
     ],
     secrets: [
       "Your hammer ('Property of Camp Guppy') went missing tonight. You lost it, drunk, and don't even know it yet.",
+      "Earlier you went stumbling down by the lake and the woods to take a leak — that's where it slipped off your belt, though you'd never admit you were out there.",
       "You'd rather no one find out about the drinking.",
     ],
     relationships: [
@@ -419,8 +424,9 @@ const CHARACTERS = [
       "Act III": [
         "Add to Survival Skills' ridiculous story, anything to pull attention off the operation.",
         "⚠️ The Wealthy Land Owner blackmails you to kill the Camp Director (or you take the fall for the whole drug operation).",
-        "With the Nurse, find the Camp Director's body and loop a rope around the neck post-mortem to frame him.",
-        "The Wealthy Land Owner verifies your work.",
+        "You go to do it, but find the Camp Director is ALREADY dead (someone beat you to it).",
+        "With the Nurse, loop a rope around the neck post-mortem to make it look like the kill was yours.",
+        "Tell the Wealthy Land Owner you did indeed make the kill, so you're off the hook for the blackmail. The Land Owner verifies your 'work.'",
       ],
       Accusation: [
         "Play it cool and point at the Camp Director. The more the room agrees, the less anyone wonders where YOU were.",
@@ -610,7 +616,7 @@ const CHARACTERS = [
     note: "This is the HOST master guide — the full solution to the mystery.",
     personality: [
       "Bumbling, inconclusive, gloriously useless as a detective.",
-      "Arrive in Act II saying you 'got a call about something.'",
+      "Arrive in Act II saying you 'got a call about something' — it was the Archery Counselor's 911 call from the blackout that dispatched you here.",
       "Secret truth: you are a MEDIUM who can summon the dead.",
     ],
     secrets: [],
@@ -656,7 +662,9 @@ const CHARACTERS = [
         block: "Act III — The Turn",
         time: "25–30 min",
         notes: [
-          "Advance the phase. Maintenance breaks; suspicion turns to the Camp Director.",
+          "FIRST, steer the room to suspect Survival Skills: the Lifeguard saw 'someone' head toward the lake, and Survival really was out by those trees. Let the group chase this red herring for a few minutes.",
+          "Then unravel it: Survival has no motive and no weapon. The voicemail + the CiT's testimony redirect everyone to the Camp Director.",
+          "Maintenance breaks; suspicion turns to the Camp Director.",
           "The group detains the Director. Take the Director aside privately and tell them how they killed Archery.",
           "Drop the remaining evidence (missing meds, the rope). The Director dies.",
         ],
@@ -736,7 +744,7 @@ const CHARACTERS = [
           "The crew detains and ties up the Camp Director in another room. (You note there's no conclusive evidence — but they can do what they want.)",
           "While everyone gossips and plots, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds — revenge for their beaten child.",
           "The Camp Director takes the drink into the room, chokes, and dies.",
-          "The Cook & Nurse find the body and stage a rope around the neck to frame the Director (so the Wealthy Land Owner's drug operation stays buried). The Land Owner verifies the work.",
+          "The Cook — sent by the Land Owner to do the killing — finds the Director already dead. With the Nurse they stage a rope around the neck, and the Cook tells the Land Owner the kill was his to get out of the blackmail. The Land Owner verifies the work.",
           "The Counselor in Training discovers the roped body.",
         ],
       },
@@ -760,10 +768,10 @@ const CHARACTERS = [
     acts: {
       "The Murders (Solution)": [
         "MURDER 1 — Archery Counselor: killed by the CAMP DIRECTOR during the blackout, with Maintenance's hammer, near the emergency phone. Body dumped in the mud; hammer planted in the Counselor in Training's backpack.",
-        "MURDER 2 — Camp Director: in Act III, while everyone gossips and plots against the restrained Camp Director, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds. The Camp Director takes the drink into the room, chokes, and dies — revenge for their beaten child. The Cook & Nurse then find the body and stage a rope around the neck to frame the Camp Director; the Wealthy Land Owner verifies. The Counselor in Training discovers the roped body.",
+        "MURDER 2 — Camp Director: in Act III, while everyone gossips and plots against the restrained Camp Director, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds. The Camp Director takes the drink into the room, chokes, and dies — revenge for their beaten child. The Cook (blackmailed by the Land Owner to do the killing) goes to do it but finds the Director ALREADY dead; the Cook & Nurse stage a rope around the neck and the Cook tells the Land Owner the kill was his, escaping the blackmail. The Wealthy Land Owner verifies. The Counselor in Training discovers the roped body.",
       ],
       "Act II — Your Entrance": [
-        "Arrive after the body is found: 'I got a call about something. Does anyone want to fill me in?'",
+        "Arrive after the body is found: 'I got a 911 call from this camp during the storm, then the line went dead. Does anyone want to fill me in?' (That was the Archery Counselor's call — make the connection explicit so it lands.)",
         "Be confused — some say there's a death, some say nothing's wrong, some are suspiciously quiet.",
         "Have the Lifeguard show you the body (the Wealthy Land Owner won't like it).",
         "Reveal: death was caused by a blunt weapon to the temple — list examples, ending with… a HAMMER.",
@@ -814,7 +822,7 @@ const CLUES = [
     emoji: "📞",
     title: "Voicemail Transcript",
     reveal: "Act III — if players search the Camp Director's car/phone",
-    body: "“This is Jordan's parent. We KNOW what you did to our child. You'll be hearing from our lawyer, and you will never work near children again.”",
+    body: "“This is Chetan's parent. We KNOW what you did to our child. You'll be hearing from our lawyer, and you will never work near children again.”",
   },
   {
     id: "911",

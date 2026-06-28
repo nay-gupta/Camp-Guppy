@@ -13,7 +13,7 @@ const GAME = {
   setting:
     "The final night of camp. The kids are gone, the counselors are partying in the main cabin, and a thunderstorm is rolling in over the lake.",
   blackout:
-    "At one point in Act I, the storm knocks the power out and the host calls a BLACKOUT. For a few minutes everyone scatters in the dark. You won't really act this out in real time, so here's how it works: when the host calls it, quietly carry out the blackout action written on YOUR card (slip off with someone, head to your car, go down by the lake, whatever you were told). You only know what YOUR character did. You do NOT see or hear what anyone else got up to unless your own card already tells you. When the lights come back, everyone drifts back into the cabin acting normal, and the Archery Counselor is nowhere to be found.",
+    "At one point in Act I, the storm knocks the power out and the host calls a BLACKOUT. For a few minutes everyone scatters in the dark. When the host calls it, quietly carry out the blackout action written on YOUR card. You only know what YOUR character did, unless explicitly stated otherwise. You do NOT see or hear what anyone else got up to unless your own card already tells you. When the lights come back, everyone drifts back into the cabin acting... normal?",
 };
 
 const CHARACTERS = [
@@ -83,10 +83,10 @@ const CHARACTERS = [
     role: "player",
     tagline: "Caring. Holier-than-thou. A little delulu.",
     blackoutAction:
-      "Sits in their car for the parent's voicemail, cries, walks to the lake, finds Maintenance's hammer in the woods, KILLS the Archery Counselor (hammer to the temple), hides the body in the mud, plants the hammer in the CiT's backpack, then returns with the crowd.",
+      "Sits in their car for the parent's voicemail, cries, walks to the lake, finds Maintenance's hammer in the woods, KILLS the Archery Counselor (hammer to the head), hides the body in the mud, plants the hammer in the CiT's backpack, then returns with the crowd.",
     blackoutPlayer:
       "Sit in your car and listen to the parent's voicemail, then slip down toward the lake and carry out your Act I plan in the dark. (Your playbook has the full sequence.)",
-    note: "You're cornered tonight, and years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on. You die in Act III, but you're not done: you return at the very end as a ghost.",
+    note: "You're cornered tonight, and years of dark secrets are catching up with you. Keep your cool; your story unfolds as the night moves on.",
     personality: [
       "'Caring' and full of kumbaya energy",
       "Holier-than-thou and a little delulu",
@@ -124,7 +124,7 @@ const CHARACTERS = [
         "Cry in the car, then walk down by the lake to be in your feelings.",
         "Feel something at your feet in the woods: a muddy hammer stamped 'Property of Camp Guppy' (Maintenance lost it).",
         "Spot the Archery Counselor near the emergency phone, with the Counselor in Training frazzled nearby.",
-        "🔪 This is your chance: hammer → temple → dead. Dispose of the body in the mud across the way.",
+        "🔪 This is your chance: hammer → head → dead. Dispose of the body in the mud across the way.",
         "Slip the hammer into the Counselor in Training's backpack.",
         "Walk back into the party right after Maintenance, Alumnus, and Lifeguard, as the lights come on.",
       ],
@@ -137,8 +137,7 @@ const CHARACTERS = [
         "Try to coax a 'confession' out of Maintenance: tell them 'it's ok.'",
         "Join Maintenance when they leave to drink, to 'calm them down.'",
         "⚠️ The group will turn on you, detain you, and tie you up in another room.",
-        "While restrained, the Useless Detective will privately tell you exactly how you killed the Archery Counselor.",
-        "💀 You're handed a drink that was secretly spiked while everyone gossiped. You take it into the room, choke, and die. Play it out.",
+        "💀 Your drink was secretly spiked while everyone gossiped. You choke and die while restrained in the other room.",
       ],
       Finale: [
         "The Useless Detective is secretly a medium.",
@@ -170,12 +169,11 @@ const CHARACTERS = [
     secrets: [
       "Archery Counselor told you there's no room to be a full counselor next year. Every slot is taken.",
       "You learn 'what counselors do' purely from common sense.",
-      "Something incriminating ends up tucked in YOUR backpack. You have no idea how it got there.",
     ],
     relationships: [
       "Archery Counselor: your idol; told you there's no job for you next year.",
       "Camp Director: 'rescued' you in the storm when you'd gotten lost.",
-      "Nurse: comes to believe you're innocent and helps you.",
+      "Nurse: the anxious, always-gloved camp medic.",
     ],
     objectives: {
       "Act I": ["Shadow the Archery Counselor to 'learn the ropes.'"],
@@ -231,13 +229,13 @@ const CHARACTERS = [
       "Always have metal tools on your person.",
     ],
     secrets: [
-      "Your hammer ('Property of Camp Guppy') went missing tonight. You lost it, drunk, and don't even know it yet.",
-      "Earlier you went stumbling down by the lake and the woods to take a leak — that's where it slipped off your belt, though you'd never admit you were out there.",
+      "All your tools are stamped 'Property of Camp Guppy,' and when you drink you get sloppy and lose track of them.",
+      "Earlier you went stumbling down by the lake and the woods to take a leak — you'd never admit you were out there.",
       "You'd rather no one find out about the drinking.",
     ],
     relationships: [
-      "Camp Director: will press you for a 'confession.'",
-      "Wealthy Land Owner: will try to pay you to make it all disappear.",
+      "Camp Director: your holier-than-thou boss who runs the camp.",
+      "Wealthy Land Owner: old money; the type to throw cash at any problem.",
     ],
     objectives: {
       "Act I": ["Keep your drinking to yourself."],
@@ -274,7 +272,7 @@ const CHARACTERS = [
   {
     id: "lifeguard",
     name: "Lifeguard",
-    code: "WHISTLE",
+    code: "SWIMSUIT",
     emoji: "🛟",
     role: "player",
     tagline: "Super dumb. Super hot.",
@@ -287,6 +285,7 @@ const CHARACTERS = [
     secrets: [
       "You're secretly in love with the Archery Counselor, and you never made it known.",
       "You flirt with the Alumnus mainly to make the Archery Counselor jealous.",
+      "You buy from the Cook (quietly).",
       "From the car during the blackout, you half-saw a figure cross toward the lake and woods, away from the party. You couldn't tell who it was.",
     ],
     relationships: [
@@ -335,7 +334,7 @@ const CHARACTERS = [
     id: "alumnus",
     name: "Alumnus",
     code: "GLORYDAYS",
-    emoji: "⚽",
+    emoji: "🎓",
     role: "player",
     tagline: "Lives in the glory days. Thinks they're still a counselor.",
     blackoutAction:
@@ -375,7 +374,7 @@ const CHARACTERS = [
       "Act III": [
         "Hint that you were with the Lifeguard.",
         "🔪 While everyone is gossiping and plotting against the restrained Camp Director, tip the sedatives you pocketed into the Camp Director's drink, then make sure that drink reaches them.",
-        "The Camp Director takes that drink into the room and dies. Your revenge for your beaten child.",
+        "The Camp Director drinks it and dies. Your revenge for your beaten child.",
       ],
       Accusation: [
         "Rage at the Camp Director publicly, but be careful not to reveal you already took your revenge.",
@@ -387,7 +386,7 @@ const CHARACTERS = [
   {
     id: "cook",
     name: "Cook",
-    code: "CAMPFIRE",
+    code: "420",
     emoji: "🍳",
     role: "player",
     tagline: "Stoner. Everyone's chill with him.",
@@ -402,7 +401,7 @@ const CHARACTERS = [
       "You run a marijuana operation on camp grounds with the Wealthy Land Owner.",
     ],
     relationships: [
-      "Wealthy Land Owner: your boss in the operation; will blackmail you.",
+      "Wealthy Land Owner: your boss in the operation; not someone you'd ever cross.",
       "Nurse: has a crush on you (doesn't know you're a stoner).",
     ],
     objectives: {
@@ -461,7 +460,7 @@ const CHARACTERS = [
     ],
     relationships: [
       "Cook: your crush; you'd do anything for him.",
-      "Counselor in Training: you come to believe they're innocent.",
+      "Counselor in Training: the eager teenage newbie.",
       "Camp Director: you suspect they're the violent one hurting kids.",
     ],
     objectives: {
@@ -712,7 +711,7 @@ const CHARACTERS = [
           "Crying in the car, the Director walks down by the lake to be in their feelings.",
           "In the woods they feel something at their feet — a muddy hammer stamped 'Property of Camp Guppy.' They figure Maintenance lost it.",
           "On the way back, they spot the Archery Counselor near the emergency phone, with the frazzled Counselor in Training nearby.",
-          "The Director sees their chance: hammer → temple → dead. They dispose of the body in the mud across the way.",
+          "The Director sees their chance: hammer → head → dead. They dispose of the body in the mud across the way.",
           "They slip the hammer into the Counselor in Training's backpack.",
           "They walk back into the party right after Maintenance, Alumnus, and Lifeguard — just as the lights come back on.",
           "Lights are back. Everyone is present… except the Archery Counselor.",
@@ -728,7 +727,7 @@ const CHARACTERS = [
           "The Camp Director urges everyone to stay calm and stick together — 'there could be a murderer among us!'",
           "Survival Skills botches a 'tracking' demonstration and hurts the Counselor in Training. The Wealthy Land Owner wants it all hushed up. The Alumnus explodes at the Camp Director. The Nurse flees, dropping the first aid kit.",
           "The Useless Detective (you) arrives: 'I got a call about something. Does anyone want to fill me in?' — confused by the mixed signals.",
-          "The Lifeguard shows you the body. You reveal the death was a blunt blow to the temple — and end your list of examples on a HAMMER.",
+          "The Lifeguard shows you the body. You reveal the death was a blunt blow to the head — and end your list of examples on a HAMMER.",
           "Suspicion swings to Maintenance, who won't admit the hammer is missing.",
           "The Counselor in Training opens their backpack for water and spots the hammer inside. The Nurse sees it too and shrieks.",
         ],
@@ -745,7 +744,7 @@ const CHARACTERS = [
           "The Counselor in Training repeats that the Camp Director 'found' them while they followed Archery. The clues connect; rumors start that the Camp Director did it.",
           "The crew detains and ties up the Camp Director in another room. (You note there's no conclusive evidence — but they can do what they want.)",
           "While everyone gossips and plots, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds — revenge for their beaten child.",
-          "The Camp Director takes the drink into the room, chokes, and dies.",
+          "The Camp Director drinks it, chokes, and dies.",
           "The Cook — sent by the Land Owner to do the killing — finds the Director already dead. With the Nurse they stage a rope around the neck, and the Cook tells the Land Owner the kill was his to get out of the blackmail. The Land Owner verifies the work.",
           "The Counselor in Training discovers the roped body.",
         ],
@@ -789,13 +788,13 @@ const CHARACTERS = [
       ],
       "The Murders (Solution)": [
         "MURDER 1 — Archery Counselor: killed by the CAMP DIRECTOR during the blackout, with Maintenance's hammer, near the emergency phone. Body dumped in the mud; hammer planted in the Counselor in Training's backpack.",
-        "MURDER 2 — Camp Director: in Act III, while everyone gossips and plots against the restrained Camp Director, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds. The Camp Director takes the drink into the room, chokes, and dies — revenge for their beaten child. The Cook (blackmailed by the Land Owner to do the killing) goes to do it but finds the Director ALREADY dead; the Cook & Nurse stage a rope around the neck and the Cook tells the Land Owner the kill was his, escaping the blackmail. The Wealthy Land Owner verifies. The Counselor in Training discovers the roped body.",
+        "MURDER 2 — Camp Director: in Act III, while everyone gossips and plots against the restrained Camp Director, the ALUMNUS spikes the Camp Director's drink with the Nurse's stolen meds. The Camp Director drinks it, chokes, and dies — revenge for their beaten child. The Cook (blackmailed by the Land Owner to do the killing) goes to do it but finds the Director ALREADY dead; the Cook & Nurse stage a rope around the neck and the Cook tells the Land Owner the kill was his, escaping the blackmail. The Wealthy Land Owner verifies. The Counselor in Training discovers the roped body.",
       ],
       "Act II — Your Entrance": [
         "Arrive after the body is found: 'I got a 911 call from this camp during the storm, then the line went dead. Does anyone want to fill me in?' (That was the Archery Counselor's call — make the connection explicit so it lands.)",
         "Be confused — some say there's a death, some say nothing's wrong, some are suspiciously quiet.",
         "Have the Lifeguard show you the body (the Wealthy Land Owner won't like it).",
-        "Reveal: death was caused by a blunt weapon to the temple — list examples, ending with… a HAMMER.",
+        "Reveal: death was caused by a blunt weapon to the head — list examples, ending with… a HAMMER.",
         "Let the table spiral over who owns a hammer (it points at Maintenance).",
       ],
       "Act III — Your Job": [
@@ -837,7 +836,7 @@ const CLUES = [
     emoji: "🩺",
     title: "Detective's Field Notes",
     reveal: "Act II — after you examine the body",
-    body: "Cause of death: a single blunt blow to the left temple. Consistent with a heavy tool, like a wrench, a rock, a pipe, or a hammer.",
+    body: "Cause of death: a single blunt blow to the head. Consistent with a heavy tool, like a wrench, a rock, a pipe, or a hammer.",
   },
   {
     id: "voicemail",

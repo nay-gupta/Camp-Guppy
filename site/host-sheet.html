@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Camp Guppy — Host Quick Reference</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>"
+    />
+    <style>
+      :root {
+        --ink: #1b2330;
+        --muted: #5a6b85;
+        --line: #d7deea;
+        --gold: #a9742a;
+        --teal: #1f7a6b;
+        --kill: #a8392c;
+        --tint: #f6f8fc;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #eef1f6;
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      /* Screen-only toolbar */
+      .toolbar {
+        position: sticky;
+        top: 0;
+        background: #11203c;
+        color: #fff;
+        padding: 0.7rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .toolbar strong { font-size: 0.95rem; }
+      .toolbar span { color: #aebbd6; font-size: 0.82rem; }
+      .toolbar button {
+        margin-left: auto;
+        background: #f4b740;
+        color: #21160a;
+        border: 0;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* The printable page */
+      .page {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 1rem auto;
+        background: #fff;
+        padding: 0.45in;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        font-size: 8.6pt;
+        line-height: 1.28;
+      }
+
+      header.sheet-head {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 4px;
+        margin-bottom: 6px;
+      }
+      header.sheet-head h1 {
+        font-size: 15pt;
+        margin: 0;
+        letter-spacing: 0.01em;
+      }
+      header.sheet-head .sub {
+        font-size: 8.5pt;
+        color: var(--muted);
+        margin-left: auto;
+        text-align: right;
+        max-width: 3.6in;
+      }
+
+      h3.bar {
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--gold);
+        margin: 8px 0 4px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 2px;
+      }
+
+      /* Phase ribbon */
+      .ribbon {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        margin-bottom: 4px;
+      }
+      .chip {
+        flex: 1 1 auto;
+        border: 1px solid var(--line);
+        border-top: 2px solid var(--teal);
+        border-radius: 5px;
+        padding: 3px 5px;
+        min-width: 0.95in;
+        background: var(--tint);
+      }
+      .chip .b { font-weight: 700; font-size: 7.6pt; display: block; }
+      .chip .t { color: var(--muted); font-size: 7.4pt; }
+
+      /* Two-column body */
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .solution {
+        border: 1px solid #e7c9c3;
+        background: #fdf4f2;
+        border-left: 3px solid var(--kill);
+        border-radius: 6px;
+        padding: 5px 7px;
+      }
+      .solution p { margin: 0 0 4px; }
+      .solution p:last-child { margin-bottom: 0; }
+      .solution b { color: var(--kill); }
+
+      ul.tight { margin: 0; padding: 0; list-style: none; }
+      ul.tight li {
+        display: grid;
+        grid-template-columns: 14px 1fr;
+        gap: 5px;
+        padding: 2px 0;
+        border-bottom: 1px dotted var(--line);
+      }
+      ul.tight li:last-child { border-bottom: 0; }
+      .em { font-size: 10pt; line-height: 1; }
+      .nm { font-weight: 700; }
+      .nm small { font-weight: 400; color: var(--muted); }
+
+      .when { color: var(--teal); font-weight: 600; }
+
+      .cue-cols { column-count: 2; column-gap: 16px; }
+      .cue-group { margin-bottom: 5px; break-inside: avoid; -webkit-column-break-inside: avoid; }
+      .cue-group h4 {
+        margin: 0 0 2px;
+        font-size: 7.6pt;
+        letter-spacing: 0.08em;
+        color: var(--teal);
+        text-transform: uppercase;
+      }
+      .cue-group ul { margin: 0; padding-left: 13px; }
+      .cue-group li { padding: 1px 0; }
+
+      .reminders {
+        margin-top: 8px;
+        border-top: 1px solid var(--line);
+        padding-top: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px 14px;
+      }
+      .reminders div { padding-left: 13px; text-indent: -13px; }
+      .reminders b { color: var(--gold); }
+
+      @media print {
+        html, body { background: #fff; }
+        .toolbar { display: none; }
+        .page { margin: 0; padding: 0; box-shadow: none; width: auto; min-height: 0; }
+      }
+      @page { size: letter portrait; margin: 0.4in; }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <strong>🏕️ Camp Guppy — Host Quick Reference</strong>
+      <span>Reads live from data.js · designed to print on one page (Letter)</span>
+      <button id="printBtn" type="button">🖨️ Print</button>
+    </div>
+
+    <main class="page">
+      <header class="sheet-head">
+        <h1>🏕️ Camp Guppy</h1>
+        <div class="sub" id="premise"></div>
+      </header>
+
+      <h3 class="bar">⏱️ Run of Show</h3>
+      <div class="ribbon" id="ribbon"></div>
+
+      <div class="cols">
+        <div>
+          <h3 class="bar">🌩️ Blackout — where everyone goes</h3>
+          <ul class="tight" id="blackout"></ul>
+        </div>
+
+        <div>
+          <h3 class="bar">🗝️ The Solution (your eyes only)</h3>
+          <div class="solution" id="solution"></div>
+
+          <h3 class="bar">🔍 Evidence — drop schedule</h3>
+          <ul class="tight" id="evidence"></ul>
+        </div>
+      </div>
+
+      <h3 class="bar">🔔 Cues you trigger</h3>
+      <div id="cues" class="cue-cols"></div>
+
+      <div class="reminders">
+        <div><b>Advance the phase</b> on your host bar to unlock each act on players' phones.</div>
+        <div><b>You're the only MEDIUM</b> — keep that codeword to yourself; it's the host gate.</div>
+        <div><b>Red herring first:</b> point the room at Survival (lakeside), then unravel to the Director.</div>
+        <div><b>Act III has two killers:</b> the Alumnus poisons first; the Cook finds the Director already dead &amp; stages the rope.</div>
+        <div><b>The big secret:</b> no one ever learns the Alumnus did it — until the ghost reveal in the Finale.</div>
+        <div><b>Full detail &amp; live timers:</b> open the site and log in with <b>MEDIUM</b>.</div>
+      </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        function esc(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+        function firstSentence(s) {
+          var m = String(s).match(/^[\s\S]*?[.!?](\s|$)/);
+          return (m ? m[0] : s).trim();
+        }
+
+        var host = (typeof CHARACTERS !== "undefined"
+          ? CHARACTERS.find(function (c) { return c.role === "host"; })
+          : null) || {};
+        var players = (typeof CHARACTERS !== "undefined" ? CHARACTERS : []).filter(
+          function (c) { return c.role !== "host" && c.blackoutAction; }
+        );
+        var clues = typeof CLUES !== "undefined" ? CLUES : [];
+
+        // Premise
+        if (typeof GAME !== "undefined") {
+          document.getElementById("premise").textContent = GAME.setting || "";
+        }
+
+        // Run of show ribbon
+        document.getElementById("ribbon").innerHTML = (host.runOfShow || [])
+          .map(function (b) {
+            return (
+              '<div class="chip"><span class="b">' +
+              esc(b.block) +
+              '</span><span class="t">' +
+              esc(b.time || "") +
+              "</span></div>"
+            );
+          })
+          .join("");
+
+        // Blackout grid
+        document.getElementById("blackout").innerHTML = players
+          .map(function (c) {
+            return (
+              '<li><span class="em">' +
+              c.emoji +
+              '</span><span><span class="nm">' +
+              esc(c.name) +
+              "</span> — " +
+              esc(c.blackoutAction) +
+              "</span></li>"
+            );
+          })
+          .join("");
+
+        // Evidence schedule
+        document.getElementById("evidence").innerHTML = clues
+          .map(function (cl) {
+            return (
+              '<li><span class="em">' +
+              cl.emoji +
+              '</span><span><span class="nm">' +
+              esc(cl.title) +
+              '</span> <span class="when">— ' +
+              esc(cl.reveal) +
+              "</span></span></li>"
+            );
+          })
+          .join("");
+
+        // Solution
+        var sol = (host.acts && host.acts["The Murders (Solution)"]) || [];
+        document.getElementById("solution").innerHTML = sol
+          .map(function (line) {
+            var i = line.indexOf(":");
+            if (i < 0) return "<p>" + esc(line) + "</p>";
+            return (
+              "<p><b>" +
+              esc(line.slice(0, i)) +
+              "</b>" +
+              esc(line.slice(i)) +
+              "</p>"
+            );
+          })
+          .join("");
+
+        // Cues, grouped by the phase prefix ("BLACKOUT · ...")
+        var cueKey = Object.keys(host.acts || {}).find(function (k) {
+          return /cue sheet/i.test(k);
+        });
+        var cues = (cueKey ? host.acts[cueKey] : []).filter(function (s) {
+          return s.indexOf("·") >= 0;
+        });
+        var groups = {};
+        var order = [];
+        cues.forEach(function (c) {
+          var dot = c.indexOf("·");
+          var phase = c.slice(0, dot).trim();
+          var rest = c.slice(dot + 1).trim();
+          var colon = rest.indexOf(":");
+          var label = colon >= 0 ? rest.slice(0, colon).trim() : rest;
+          var detail = colon >= 0 ? firstSentence(rest.slice(colon + 1).trim()) : "";
+          if (!groups[phase]) {
+            groups[phase] = [];
+            order.push(phase);
+          }
+          groups[phase].push({ label: label, detail: detail });
+        });
+        document.getElementById("cues").innerHTML = order
+          .map(function (p) {
+            var items = groups[p]
+              .map(function (it) {
+                return (
+                  "<li><b>" +
+                  esc(it.label) +
+                  "</b>" +
+                  (it.detail ? " — " + esc(it.detail) : "") +
+                  "</li>"
+                );
+              })
+              .join("");
+            return (
+              '<div class="cue-group"><h4>' +
+              esc(p) +
+              "</h4><ul>" +
+              items +
+              "</ul></div>"
+            );
+          })
+          .join("");
+
+        document.getElementById("printBtn").addEventListener("click", function () {
+          window.print();
+        });
+      })();
+    </script>
+  </body>
+</html>

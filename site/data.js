@@ -142,7 +142,8 @@ const CHARACTERS = [
       ],
       Finale: [
         "The Useless Detective is secretly a medium.",
-        "You return as a GHOST to be summoned and confess the whole truth: that you killed the Archery Counselor. (The ghost spills everything.)",
+        "You return as a GHOST to be summoned and confess Murder 1: you killed the Archery Counselor with Maintenance's hammer near the emergency phone, dumped the body in the mud, and planted the hammer in the Counselor in Training's backpack.",
+        "Death lifts the fog — so name your own killer too: the Alumnus, Chetan's parent, spiked your drink with the Nurse's stolen sedatives to avenge the child you beat. The rope was staged after you were already gone. (The ghost tells ALL — even the parts the living never pieced together.)",
       ],
     },
   },
@@ -345,14 +346,14 @@ const CHARACTERS = [
     personality: [
       "Won't stop talking about the glory days back when you were a camper.",
       "Genuinely believes you're part of the current counselor squad.",
-      "Have a 10-year-old child at the camp.",
+      "Have a 10-year-old child, Chetan, at the camp.",
     ],
     secrets: [
-      "Your child was repeatedly beaten by the Camp Director.",
+      "Your child Chetan was repeatedly beaten by the Camp Director — you're the parent who left the voicemail threatening a lawsuit.",
     ],
     relationships: [
       "Lifeguard: your low-key flirtation and blackout alibi.",
-      "Camp Director: beat your child. You'll never forgive them.",
+      "Camp Director: beat your child, Chetan. You'll never forgive them.",
       "Nurse: always gloved, with a first aid kit full of meds.",
     ],
     objectives: {
@@ -683,7 +684,7 @@ const CHARACTERS = [
         time: "10 min",
         notes: [
           "Advance to the Finale. Reveal you're a medium.",
-          "Summon the ghost(s) and let the full truth spill. Crown a 'best detective' if you like.",
+          "Summon the ghost(s) and let the full truth spill: the Director confesses killing Archery AND names the Alumnus (Chetan's parent) as their own poisoner. Crown a 'best detective' if you like.",
         ],
       },
     ],
@@ -763,6 +764,7 @@ const CHARACTERS = [
         beats: [
           "Reveal that you, the Useless Detective, are secretly a MEDIUM.",
           "Summon the GHOST of the Camp Director (the Archery Counselor can be summoned too) — and the ghost spills EVERYTHING.",
+          "The ghost confesses Murder 1 (it killed Archery with the hammer and framed the CiT) and finally unmasks Murder 2: the Alumnus — Chetan's parent — poisoned the Director's drink with the Nurse's stolen sedatives. The staged rope was just a cover.",
         ],
       },
     ],
@@ -811,6 +813,7 @@ const CHARACTERS = [
         "Open the floor: every character makes public statements and accusations about what they think happened.",
         "Then reveal you're a MEDIUM.",
         "Summon the GHOST of the Camp Director (the Archery Counselor player can also be summoned) — and the ghost spills EVERYTHING.",
+        "Have the ghost confess Murder 1 (killed Archery with the hammer, framed the CiT) and then drop the bombshell the room never solved: the Alumnus — Chetan's parent — poisoned the Director's drink with the Nurse's stolen sedatives, and the rope was staged after death.",
       ],
     },
   },

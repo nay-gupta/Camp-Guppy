@@ -60,9 +60,9 @@ reveals a secret codeword.
 
 ## The act flow
 
-The story moves through five phases the host advances in order:
+The story moves through six phases the host advances in order:
 
-`Intro → Act I → Act II → Act III → Finale`
+`Intro → Act I → Act II → Act III → Accusation → Finale`
 
 Players only see playbook sections up to the current phase. The host sees
 everything plus the controls.
@@ -102,25 +102,26 @@ swa deploy . --api-location api
 (You can also push this folder to GitHub and let the Static Web Apps GitHub
 Action build it — same three location values.)
 
-### 3. Configure two Application Settings
+### 3. Configure the Application Setting
 
 In the Portal: your **Static Web App → Settings → Environment variables**
 (a.k.a. Application settings) → add:
 
-| Name                              | Value                                              |
-| --------------------------------- | -------------------------------------------------- |
-| `AZURE_STORAGE_CONNECTION_STRING` | the connection string from step 1                  |
-| `HOST_KEY`                        | a secret only you know (e.g. a long random phrase) |
+| Name                              | Value                             |
+| --------------------------------- | --------------------------------- |
+| `AZURE_STORAGE_CONNECTION_STRING` | the connection string from step 1 |
 
-`HOST_KEY` is what protects the "advance act" button — only someone who enters
-it can move the story.
+> **Note:** the act/blackout controls are **not** password-protected — the
+> `/api/state` endpoint is open, so anyone who knows the site URL could advance
+> the story. In practice the host is simply whoever logs in with the `MEDIUM`
+> codeword. For a friendly party that's plenty; if you want true host-only
+> control, add a server-side key check to the API.
 
 ### 4. Run the party
 
 1. Share the site URL + each player's codeword.
-2. On **your** device, open the site, log in with `MEDIUM`, and the first time
-   you tap a control you'll be asked for the **host key** — enter the `HOST_KEY`
-   value. It's remembered on your device after that.
+2. On **your** device, open the site and log in with `MEDIUM` to get the host
+   controls. It's remembered on your device after that.
 3. Tap **Advance to next act** to walk everyone through the story.
 
 > Tip: keep the host page open on your phone all night. To back up a step, use
@@ -148,8 +149,8 @@ npm install -g @azure/static-web-apps-cli
 swa start . --api-location api
 ```
 
-(You'll need `AZURE_STORAGE_CONNECTION_STRING` and `HOST_KEY` available to the
-local API, e.g. via `api/local.settings.json`.)
+(You'll need `AZURE_STORAGE_CONNECTION_STRING` available to the local API, e.g.
+via `api/local.settings.json`.)
 
 ## Direct links (optional)
 
@@ -165,5 +166,6 @@ https://YOURSITE/?c=BULLSEYE
 This is a static site, so codewords live in `data.js` in the browser. That's
 perfect for honest friends, but a determined player could read the source. Don't
 share the repository or files with players before the party — only the live URL
-and their own codeword. (The act state and the `HOST_KEY` live server-side in
-Azure, so the advance-act control is genuinely host-only.)
+and their own codeword. (The act state lives server-side in Azure, but the
+advance-act control isn't authenticated — so keep the host page to yourself and
+don't hand the site around before the party.)

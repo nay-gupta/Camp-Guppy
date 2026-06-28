@@ -155,7 +155,7 @@
           <ul class="ros-notes">${notes}</ul></div>`;
       })
       .join("");
-    return `<details class="section section-fold" open><summary><span class="fold-title">⏱️ Run of Show — Host Timing</span></summary><div class="fold-body">
+    return `<details class="section section-fold"><summary><span class="fold-title">⏱️ Run of Show — Host Timing</span></summary><div class="fold-body">
       <p class="tl-intro">Suggested pacing for a ~2 hour party. Use the Advance button to move everyone between phases.</p>
       <div class="ros-list">${rows}</div></div></details>`;
   }
@@ -176,6 +176,42 @@
     return `<details class="section section-fold"><summary><span class="fold-title">📜 Full Timeline — What Really Happened</span></summary><div class="fold-body">
       <p class="tl-intro">The complete chronological truth. For your eyes only.</p>
       <div class="tl-groups">${groups}</div></div></details>`;
+  }
+
+  // Host-only: a drop schedule for the printable evidence cards, grouped by the
+  // phase each clue should be revealed in so nothing gets handed out too early.
+  function cluesBlock(isHost) {
+    const clues = typeof CLUES !== "undefined" ? CLUES : [];
+    if (!isHost || !clues.length) return "";
+    const groups = {};
+    const order = [];
+    clues.forEach((cl) => {
+      const idx = phaseIndex(cl.reveal);
+      const label = PHASES[idx] || PHASES[0];
+      if (!groups[label]) {
+        groups[label] = [];
+        order.push({ idx, label });
+      }
+      groups[label].push(cl);
+    });
+    order.sort((a, b) => a.idx - b.idx);
+    const sections = order
+      .map(({ label }) => {
+        const cards = groups[label]
+          .map(
+            (cl) => `<div class="clue-row">
+              <div class="clue-head"><span class="clue-emoji">${cl.emoji}</span><span class="clue-title">${escapeHtml(cl.title)}</span></div>
+              <p class="clue-when">${escapeHtml(cl.reveal)}</p>
+              <p class="clue-text">${escapeHtml(cl.body)}</p>
+            </div>`
+          )
+          .join("");
+        return `<div class="clue-group"><h4>${escapeHtml(label)}</h4><div class="clue-list">${cards}</div></div>`;
+      })
+      .join("");
+    return `<details class="section section-fold"><summary><span class="fold-title">🔍 Evidence — When to Reveal</span></summary><div class="fold-body">
+      <p class="tl-intro">Drop each clue on its cue so the mystery is something players DISCOVER. Print the physical cards from cards.html and hand them out on these beats.</p>
+      <div class="clue-groups">${sections}</div></div></details>`;
   }
 
   function actsBlock(acts, isHost) {
@@ -210,6 +246,82 @@
     return `<section class="section"><h3>Your Playbook</h3><div class="acts">${blocks}</div></section>`;
   }
 
+  // Map a cue-sheet line (e.g. "ACT II · showing the body") to its phase
+  // index, or -1 when it isn't tagged to a phase. Lets the "Right now" panel
+  // surface only the current phase's paired moments.
+  function cuePhase(line) {
+    const s = String(line).toUpperCase();
+    if (/^\s*BLACKOUT\b/.test(s)) return 1; // the blackout happens in Act I
+    if (/^\s*ACT III\b/.test(s)) return 3;
+    if (/^\s*ACT II\b/.test(s)) return 2;
+    if (/^\s*ACT I\b/.test(s)) return 1;
+    if (/^\s*ACCUSATION\b/.test(s)) return 4;
+    if (/^\s*FINALE\b/.test(s)) return 5;
+    if (/^\s*INTRO\b/.test(s)) return 0;
+    return -1;
+  }
+
+  // Host-only: a focused, phase-aware briefing pinned to the top of the
+  // dossier. Shows only what matters for the CURRENT phase — what to run, what
+  // to hand out, which paired moments to trigger — so the host isn't digging
+  // through the whole playbook mid-party.
+  function hostNowPanel(c) {
+    const phase = PHASES[currentAct] || PHASES[0];
+
+    const ros = (c.runOfShow || []).filter(
+      (b) => phaseIndex(b.block) === currentAct
+    );
+    const runHtml = ros
+      .map((b) => {
+        const notes = (b.notes || [])
+          .map((n) => `<li>${escapeHtml(n)}</li>`)
+          .join("");
+        const time = b.time
+          ? `<span class="now-time">${escapeHtml(b.time)}</span>`
+          : "";
+        return `<div class="now-ros"><div class="now-ros-head"><span class="now-ros-block">${escapeHtml(
+          b.block
+        )}</span>${time}</div><ul>${notes}</ul></div>`;
+      })
+      .join("");
+
+    const clues = typeof CLUES !== "undefined" ? CLUES : [];
+    const due = clues.filter((cl) => phaseIndex(cl.reveal) === currentAct);
+    const clueHtml = due.length
+      ? `<ul class="now-clues">${due
+          .map(
+            (cl) =>
+              `<li><span class="now-clue-emoji">${cl.emoji}</span>` +
+              `<span class="now-clue-title">${escapeHtml(cl.title)}</span>` +
+              `<span class="now-clue-when">${escapeHtml(cl.reveal)}</span></li>`
+          )
+          .join("")}</ul>`
+      : `<p class="now-empty">Nothing new to hand out this phase.</p>`;
+
+    const cueKey = Object.keys(c.acts || {}).find((k) => /cue sheet/i.test(k));
+    const cues = (cueKey ? c.acts[cueKey] : []).filter(
+      (line) => cuePhase(line) === currentAct
+    );
+    const cueHtml = cues.length
+      ? `<div class="now-block"><h4>🔔 Shepherd these moments</h4><ul class="now-cues">${cues
+          .map((line) => `<li>${escapeHtml(line)}</li>`)
+          .join("")}</ul></div>`
+      : "";
+
+    return `<section class="now-panel">
+      <div class="now-head"><span class="now-eyebrow">You are here</span><span class="now-phase">${escapeHtml(
+        phase
+      )}</span></div>
+      ${
+        runHtml
+          ? `<div class="now-block"><h4>▶ Run this phase</h4><div class="now-ros-list">${runHtml}</div></div>`
+          : ""
+      }
+      <div class="now-block"><h4>🔍 Hand out this phase</h4>${clueHtml}</div>
+      ${cueHtml}
+    </section>`;
+  }
+
   function hostBar() {
     const phase = PHASES[currentAct] || PHASES[0];
     const atStart = currentAct <= 0;
@@ -238,17 +350,21 @@
           `<span class="bo-act">${escapeHtml(c.blackoutAction)}</span></li>`
       )
       .join("");
-    return `<section class="section blackout-panel">
-      <h3>\uD83C\uDF29\uFE0F Blackout Control</h3>
-      <div class="bo-controls">
-        <button class="btn" id="boStart">\u26A1 Start Blackout (3:00)</button>
-        <button class="btn-ghost" id="boPlus">+1 min</button>
-        <button class="btn-ghost" id="boStop">End blackout</button>
-        <span class="bo-panel-clock" id="boPanelClock">Ready</span>
+    // Only the storm/blackout (Act I) needs this expanded; tuck it away after.
+    const open = currentAct <= 1 ? " open" : "";
+    return `<details class="section blackout-panel"${open}>
+      <summary class="bo-summary"><span class="bo-summary-title">\uD83C\uDF29\uFE0F Blackout Control</span><span class="bo-summary-hint">Act I</span></summary>
+      <div class="bo-body">
+        <div class="bo-controls">
+          <button class="btn" id="boStart">\u26A1 Start Blackout (3:00)</button>
+          <button class="btn-ghost" id="boPlus">+1 min</button>
+          <button class="btn-ghost" id="boStop">End blackout</button>
+          <span class="bo-panel-clock" id="boPanelClock">Ready</span>
+        </div>
+        <p class="bo-panel-note">Hit Start to drop a synced countdown on every player's screen. Quietly shepherd each blackout action below as the room plays it out in the dark:</p>
+        <ol class="bo-actions">${rows}</ol>
       </div>
-      <p class="bo-panel-note">Hit Start to drop a synced countdown on every player's screen. Quietly shepherd each blackout action below as the room plays it out in the dark:</p>
-      <ol class="bo-actions">${rows}</ol>
-    </section>`;
+    </details>`;
   }
 
   function render(c) {
@@ -270,6 +386,7 @@
           ? hostBar()
           : `<p class="phase-pill">Now playing: <strong>${escapeHtml(phaseLabel)}</strong></p>`
       }
+      ${isHost ? hostNowPanel(c) : ""}
       ${isHost ? hostBlackoutPanel() : ""}
       ${!isHost ? blackoutLiveBlock(c) : ""}
       ${c.note ? `<p class="callout">${escapeHtml(c.note)}</p>` : ""}
@@ -279,6 +396,7 @@
       ${objectivesBlock(c.objectives, isHost)}
       ${!isHost ? blackoutBlock() : ""}
       ${actsBlock(c.acts, isHost)}
+      ${cluesBlock(isHost)}
       ${isHost ? runOfShowBlock(c.runOfShow) : ""}
       ${isHost ? timelineBlock(c.timeline) : ""}
       <p class="footer-note">Keep this to yourself. The fun dies if the secrets get out early.</p>

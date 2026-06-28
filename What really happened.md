@@ -28,8 +28,8 @@
 - Director picks up the hammer, sees "Property of Camp Guppy" on it, concludes that it must have been the maintenance persons's and they lost it.
 - On the way back to camp, they spot [[Archery]] near the emergency phone, and [[Counselor in Training]] somewhat nearby. [[Counselor in Training|CiT]] is frazzled from getting lost
 - Director knows this is his chance to save himself
-- Wrench -> head -> dead -> dispose of body in some mud across the way
-- Slips wrench into [[Counselor in Training]] backpack
+- Hammer -> head -> dead -> dispose of body in some mud across the way
+- Slips hammer into [[Counselor in Training]] backpack
 - They walk into the party after [[Maintenance]], [[Alumnus (Soccer Parent)|Alumnus]], and [[Lifeguard]] right after the lights come on
 
 ## ACT II
